@@ -11,3 +11,5 @@ build/
 test-results/
 playwright-report/
 .vercel/
+*.tsbuildinfo
+/blob-report/
