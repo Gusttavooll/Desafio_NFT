@@ -1,12 +1,22 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { createRouter, RouterProvider } from '@tanstack/react-router'
+import { routeTree } from './routeTree.gen'
 import './index.css'
+
+const router = createRouter({ routeTree })
+
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router
+  }
+}
 
 const rootElement = document.getElementById('root')
 if (!rootElement) throw new Error('Elemento #root não encontrado')
 
 createRoot(rootElement).render(
   <StrictMode>
-    <h1>Desafio NFT</h1>
+    <RouterProvider router={router} />
   </StrictMode>,
 )
