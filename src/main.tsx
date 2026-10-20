@@ -1,6 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createRouter, RouterProvider } from '@tanstack/react-router'
+import { QueryClientProvider } from '@tanstack/react-query'
+import { queryClient } from '@/application/query-client'
 import { routeTree } from './routeTree.gen'
 import './index.css'
 
@@ -12,11 +14,21 @@ declare module '@tanstack/react-router' {
   }
 }
 
+async function enableMocking() {
+  if (import.meta.env.VITE_ENABLE_MOCKS !== 'true') return
+  const { worker } = await import('@/mocks/browser')
+  await worker.start({ onUnhandledRequest: 'bypass' })
+}
+
 const rootElement = document.getElementById('root')
 if (!rootElement) throw new Error('Elemento #root não encontrado')
 
+await enableMocking()
+
 createRoot(rootElement).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </StrictMode>,
 )
