@@ -1,0 +1,60 @@
+# Desafio NFT
+
+Marketplace de NFTs com catálogo, carrinho, checkout com carteiras simuladas e atualizações em tempo real. Toda a API REST e o Socket.IO são simulados com MSW. Produto e arquitetura estão em [`docs/`](docs/).
+
+> Estado atual: só a estrutura do projeto. As rotas exibem apenas o título da tela.
+
+## Requisitos
+- Node.js 22.12 ou superior
+- npm
+
+## Setup
+```bash
+npm ci
+npx playwright install chromium
+```
+
+## Scripts
+| Script | O que faz |
+|--------|-----------|
+| `npm run dev` | Servidor de desenvolvimento (Vite) |
+| `npm run build` | Typecheck e build de produção em `dist/` |
+| `npm run preview` | Serve o build localmente |
+| `npm run typecheck` | `tsc -b` (sem emitir arquivos) |
+| `npm run lint` | ESLint e typecheck |
+| `npm run test:e2e` | Testes Playwright (Chromium desktop 1440 e mobile 390); relatório em `playwright-report/` |
+
+## Variáveis de ambiente
+Defina num `.env.local` (fora do Git) ou no ambiente. Nenhuma é segredo.
+
+| Variável | Padrão | Descrição |
+|----------|--------|-----------|
+| `VITE_ENABLE_MOCKS` | desligado | `true` liga o MSW. Necessário para usar o app sem backend, inclusive no build de demonstração. |
+| `VITE_API_URL` | `/api` | Base da API REST |
+| `VITE_SOCKET_URL` | origem da página | URL do servidor Socket.IO |
+
+O Playwright já sobe o servidor com `VITE_ENABLE_MOCKS=true`.
+
+## Stack
+React 19, TypeScript 6 (strict), Vite 8, TanStack Router (rotas file-based em `src/routes/`), TanStack Query, Axios, socket.io-client, Tailwind CSS 4, shadcn/ui, MSW 2 com `@mswjs/socket.io-binding` e Playwright.
+
+Versões fixadas de propósito:
+- **MSW 2.15.0**: o `@mswjs/socket.io-binding` 0.2.0 exige `msw ^2.10.2`.
+- **TypeScript 6.0.3**: o `typescript-eslint` 8.72 aceita no máximo `<6.1.0`.
+
+## Estrutura
+```
+src/
+├── domain/          # regras e tipos puros
+├── application/     # casos de uso e TanStack Query
+├── infrastructure/  # Axios e socket.io-client
+├── ui/              # componentes (shadcn em ui/components/ui)
+├── routes/          # rotas file-based do TanStack Router
+├── mocks/           # MSW
+├── lib/             # utilitários do shadcn
+└── main.tsx
+```
+`src/routeTree.gen.ts` é gerado pelo plugin do Router e fica versionado.
+
+## Deploy (Vercel)
+O `vercel.json` reescreve todas as rotas para `index.html`, então refresh e acesso direto funcionam. Para a demonstração com mocks, defina `VITE_ENABLE_MOCKS=true` nas variáveis de ambiente do projeto na Vercel.
