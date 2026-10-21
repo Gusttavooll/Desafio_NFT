@@ -1,0 +1,64 @@
+{
+  "title": "Topologia",
+  "status": "generated",
+  "start": 74576,
+  "length": 12288,
+  "endInclusive": 86863,
+  "noiseWidth": 64,
+  "noiseHeight": 64,
+  "mapping": "floor(three_decimal_digits * 256 / 1000)",
+  "piDatasetSha256": "bd7c97e5805aae9a1e4f69b303a3d4b271688a8aea32389be9c6b249b34e2800",
+  "digitsSha256": "d333f942907c81d506fb1229437e23271d393008ac55cb6881f2557d8ea0c9e3",
+  "noisePixelsSha256": "65e7e96684129bfee5c1d56d9412c550a14df1bc7deb95283b753b0b197f6763",
+  "referenceId": "7e083a222e82492a09de02a14eb74aa714b749253eacecff021b284d63d5b9ac",
+  "referenceIdSchema": [
+    "kronos-pi-image-reference-v1",
+    74576,
+    12288,
+    "d333f942907c81d506fb1229437e23271d393008ac55cb6881f2557d8ea0c9e3",
+    "gemini-3.1-flash-image"
+  ],
+  "requestedModel": "gemini-3.1-flash-image",
+  "promptSha256": "063998cb9ef647be2498b8fcf388356700a46bd7856a93dc537f1bb6dacb2c9d",
+  "inputImage": "noise.png",
+  "inputImageSha256": "cbc1d1feee02561e34d7ece52a176ebe4d03de60af6ee40bb5ab736401018388",
+  "generationMode": "text-and-image-to-image; Pi noise as visual reference, not model latent seed",
+  "reproducibility": "Pi noise is deterministic. Gemini final image is not guaranteed deterministic; preserve original output.",
+  "minted": false,
+  "sold": false,
+  "returnedModel": "gemini-3.1-flash-image",
+  "responseId": "BDXZasuzF_fdytMPnqGD0Qs",
+  "usage": {
+    "promptTokenCount": 586,
+    "candidatesTokenCount": 1502,
+    "totalTokenCount": 2088,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 328
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 258
+      }
+    ],
+    "candidatesTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1120
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "outputs": [
+    {
+      "file": "art.jpg",
+      "size": [
+        1024,
+        1024
+      ],
+      "fileSha256": "1d8f2b93c9bf4f2c8f51949d244688a1ffd58a5b845e9114f18853347922f3c2",
+      "rgbaSha256": "017037bd2e1917700476d1efbb99872faf01cfc2110084aae5cefea1d6c0da84"
+    }
+  ]
+}

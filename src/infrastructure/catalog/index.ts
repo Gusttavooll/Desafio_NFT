@@ -8,3 +8,4 @@ export type {
   NftDto,
   NftSort,
 } from './dto'
+export { getCatalog, getNft } from './catalog-api'

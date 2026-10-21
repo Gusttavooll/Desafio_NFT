@@ -1,0 +1,8 @@
+{
+  "source": "Locally computed mpmath.pi",
+  "mpmathVersion": "1.3.0",
+  "digits": 90000,
+  "sha256": "bd7c97e5805aae9a1e4f69b303a3d4b271688a8aea32389be9c6b249b34e2800",
+  "verification": "Known prefix and agreement at 90030 and 90080 decimal precision",
+  "coordinateConvention": "1-based decimal digits; excludes integer part"
+}

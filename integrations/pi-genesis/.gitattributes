@@ -1,0 +1,5 @@
+# Os hashes/CIDs e o bytecode comprometem os bytes originais; não normalizar EOL.
+* -text
+**/* -text
+# Arquivos de proveniência preservam CRLF; CR no fim de linha não é erro de espaço.
+release/** whitespace=cr-at-eol

@@ -1,0 +1,37 @@
+{
+  "name": "Kronos Pi #62288 - Ressonancia",
+  "description": "Genesis edition of three. AI artwork generated using an actual Pi-derived grayscale noise image as visual reference. The token represents this collection entry, not ownership of Pi or an uncopyable image.",
+  "image": "ipfs://bafybeielr2h6ibkyi7kaeyh7ekni33q4nfenq7wesrfmzqc2irumc2zuwq/62288/art.jpg",
+  "attributes": [
+    {
+      "trait_type": "Pi start (1-based)",
+      "value": 62288
+    },
+    {
+      "trait_type": "Pi end (inclusive)",
+      "value": 74575
+    },
+    {
+      "trait_type": "Digit count",
+      "value": 12288
+    },
+    {
+      "trait_type": "Edition",
+      "value": "1 of 1"
+    },
+    {
+      "trait_type": "Generator",
+      "value": "gemini-3.1-flash-image"
+    }
+  ],
+  "properties": {
+    "pi_dataset_sha256": "bd7c97e5805aae9a1e4f69b303a3d4b271688a8aea32389be9c6b249b34e2800",
+    "digits_sha256": "a28e8d1da6b9139a4cc7ed8eb6f2f7f7aab2deaea2c719e260faab254d568a50",
+    "image_sha256": "9146529442fe695903d33026199ea0cee258332917fd2cba98e957d501b57e1f",
+    "noise": "ipfs://bafybeielr2h6ibkyi7kaeyh7ekni33q4nfenq7wesrfmzqc2irumc2zuwq/62288/noise.png",
+    "digits": "ipfs://bafybeielr2h6ibkyi7kaeyh7ekni33q4nfenq7wesrfmzqc2irumc2zuwq/62288/digits.txt",
+    "generation_record": "ipfs://bafybeielr2h6ibkyi7kaeyh7ekni33q4nfenq7wesrfmzqc2irumc2zuwq/62288/metadata.json",
+    "prompt": "ipfs://bafybeielr2h6ibkyi7kaeyh7ekni33q4nfenq7wesrfmzqc2irumc2zuwq/62288/prompt.txt",
+    "generation_mode": "text-and-image-to-image; Pi noise as visual reference, not model latent seed"
+  }
+}
