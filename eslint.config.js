@@ -29,7 +29,7 @@ const restrictImports = (...patterns) => ({
 })
 
 export default defineConfig([
-  globalIgnores(['dist', 'src/routeTree.gen.ts', 'public/mockServiceWorker.js', 'playwright-report', 'test-results', 'blob-report']),
+  globalIgnores(['dist', '.claude','src/routeTree.gen.ts', 'public/mockServiceWorker.js', 'playwright-report', 'test-results', 'blob-report']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
