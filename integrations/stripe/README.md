@@ -1,6 +1,20 @@
 # Stripe: extensão em modo de teste
 
-Extensão isolada do desafio MSW. O adaptador chama a API real de Checkout via `fetch` nativo do Node; nenhum pacote novo e nenhuma chave no frontend. Apenas chaves `sk_test_` são aceitas. Há handlers HTTP testados, mas ainda não há servidor publicado, banco conectado ou pagamento end-to-end.
+Extensão isolada do desafio MSW. O adaptador chama a API real de Checkout via `fetch` nativo do Node; nenhum pacote novo e nenhuma chave no frontend. Apenas chaves `sk_test_` são aceitas. O servidor local sandbox usa SQLite e sessão HttpOnly própria. Um pagamento de teste foi concluído pelo browser e confirmado pelo servidor em 21/10/2026. Não há deploy público nem emissão de NFT.
+
+## Executar o sandbox local
+
+Requer Node 24 (usa `node:sqlite`). Na raiz do projeto, com `STRIPE_SECRET_KEY` test e `APP_ORIGIN=http://127.0.0.1:5201` no arquivo local ignorado `.env.stripe.local`:
+
+```powershell
+node --env-file=.env.stripe.local integrations/stripe/server.mjs
+```
+
+Abra http://127.0.0.1:5201. O servidor cria uma sessão de teste com cookie HttpOnly e um pedido demonstrativo de R$10,00. Nenhum preço vem do navegador e não existe conversão de ETH. Use cartão `4242 4242 4242 4242`, validade futura, CVC fictício e e-mail fictício. Após pagar, o retorno consulta a API Stripe no servidor, verifica sessão/valor/moeda/pedido/revisão e grava confirmação + recibo atomicamente.
+
+Banco persistido em `integrations/stripe/.local/sandbox.sqlite`, ignorado pelo Git. O servidor só aceita host 127.0.0.1 e origem local configurada. Esta sessão de sandbox não autentica usuários reais do marketplace; a fixture não consome estoque nem emite NFT. Uma sessão de navegador corresponde a um pedido demonstrativo. Para outro teste use uma nova sessão de navegador.
+
+`repository.mjs` implementa isolamento por colecionador, sessão com expiração, associação única à sessão Stripe e deduplicação transacional de eventos/recibos. `reconcile.mjs` permite recuperar a confirmação no retorno e na consulta de status. O webhook exige `STRIPE_WEBHOOK_SECRET` de um endpoint próprio; sua entrega externa ainda não foi configurada/testada. Sem webhook, esta versão local consulta o Stripe ao verificar status — não há processamento em background quando ninguém consulta.
 
 ## Executar os testes sem credenciais
 
@@ -20,7 +34,7 @@ Todas as respostas usam `Cache-Control: no-store`. Erros de infraestrutura não 
 
 O host deve fornecer `origin`, `secretKey`, `webhookSecret`, `authenticate(request)` e `repository`. `authenticate` deve retornar `{ id }` somente após validar uma sessão real no servidor. Não reutilizar tokens simulados do MSW.
 
-Contrato obrigatório do repositório, ainda sem implementação conectada:
+Contrato do repositório (implementado para fixture local; revalidação de catálogo/estoque de produção ainda deve ser conectada):
 
 | Método | Garantia exigida |
 | --- | --- |
@@ -33,7 +47,7 @@ O handler não substitui essas garantias de banco. O parâmetro opcional `checko
 
 ## Reutilização do sandbox Zenway
 
-Autorizada pelo usuário em 21/10/2026 para testes. Não foi localizada chave Stripe test utilizável nos arquivos de ambiente locais inspecionados do Zenway. O painel Stripe pediu login. Nenhuma credencial foi copiada e nenhuma chamada autenticada ao gateway foi feita nesta etapa.
+Autorizada pelo usuário em 21/10/2026 para testes. Após login manual, a conta exibida foi **Brothers Milionare**, modo test. A chave test foi guardada somente no arquivo local ignorado `.env.stripe.local`, sem impressão em logs. Checkout criado e pagamento test confirmado às 19:27 BRT. Evidência: `../outputs/stripe-sandbox-confirmed.png` no workspace pai do repositório.
 
 Depois do acesso: usar somente chave test; configurar endpoint/webhook específico do Kronos. O segredo de assinatura de um endpoint Zenway não valida automaticamente eventos de outro endpoint. Não reutilizar preços de assinatura Zenway para pedidos de NFTs nem alterar sua configuração de produção.
 
@@ -49,7 +63,7 @@ Depois do acesso: usar somente chave test; configurar endpoint/webhook específi
 
 ## Configuração pendente
 
-`STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` e `APP_ORIGIN` pertencem somente ao servidor. Não usar prefixo `VITE_`. Gemini não fornece credenciais Stripe. Nenhum segredo foi lido, salvo ou validado nesta entrega.
+`STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` e `APP_ORIGIN` pertencem somente ao servidor. Não usar prefixo `VITE_`. A chave test e a origem local foram configuradas; o segredo de webhook próprio permanece pendente. Gemini não fornece credenciais Stripe.
 
 ## Fontes
 
