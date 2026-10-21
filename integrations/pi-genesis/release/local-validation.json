@@ -1,0 +1,29 @@
+{
+  "status": "passed_on_ephemeral_local_evm_only",
+  "chainId": 31337,
+  "publicNetworkDeployment": false,
+  "mintedOnPublicNetwork": false,
+  "manifestRoot": "0x209c77271b3a2d682bf510cc2bb5cbac1bb5948b469057ef65bae3f59054129f",
+  "deploymentGasUsed": "1550828",
+  "mints": [
+    {
+      "tokenId": 50000,
+      "gasUsed": "305340",
+      "ownerMatches": true,
+      "tokenURIMatches": true
+    },
+    {
+      "tokenId": 62288,
+      "gasUsed": "257342",
+      "ownerMatches": true,
+      "tokenURIMatches": true
+    },
+    {
+      "tokenId": 74576,
+      "gasUsed": "259921",
+      "ownerMatches": true,
+      "tokenURIMatches": true
+    }
+  ],
+  "note": "Local gas units are not a quote for Base fees. No public wallet, public contract or real funds used."
+}

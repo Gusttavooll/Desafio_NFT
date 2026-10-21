@@ -1,0 +1,59 @@
+{
+  "collection": "Kronos Pi Genesis",
+  "symbol": "KPI",
+  "maxSupply": 3,
+  "digitCount": 90000,
+  "intervalLength": 12288,
+  "status": "prepared_locally_not_published_or_minted",
+  "assetsCid": "bafybeielr2h6ibkyi7kaeyh7ekni33q4nfenq7wesrfmzqc2irumc2zuwq",
+  "metadataCid": "bafybeiddpgxjfi6zatscr2lmkvin7lfhhng6sxfbrch27iuufmu2mi4h3y",
+  "manifestRoot": "0x209c77271b3a2d682bf510cc2bb5cbac1bb5948b469057ef65bae3f59054129f",
+  "piDatasetHash": "0xbd7c97e5805aae9a1e4f69b303a3d4b271688a8aea32389be9c6b249b34e2800",
+  "merkleEncoding": [
+    "uint256",
+    "bytes32",
+    "bytes32",
+    "string"
+  ],
+  "pieces": [
+    {
+      "title": "Singularidade",
+      "start": 50000,
+      "digitsHash": "0x95d2002ceb78583f2b06d2af9e556d490be670229ec2fe463576983d948e6dbc",
+      "imageHash": "0xfe1807e5816a2b75ad3c1e4397f3ca969a2757731e462a17cc69dc8ff1a2dc3d",
+      "tokenURI": "ipfs://bafybeiddpgxjfi6zatscr2lmkvin7lfhhng6sxfbrch27iuufmu2mi4h3y/50000.json",
+      "proof": [
+        "0xd20890fcf3058b1be3af4b4a6d65de5cf485620d490a1b8469ca0623ac808ca1"
+      ]
+    },
+    {
+      "title": "Ressonancia",
+      "start": 62288,
+      "digitsHash": "0xa28e8d1da6b9139a4cc7ed8eb6f2f7f7aab2deaea2c719e260faab254d568a50",
+      "imageHash": "0x9146529442fe695903d33026199ea0cee258332917fd2cba98e957d501b57e1f",
+      "tokenURI": "ipfs://bafybeiddpgxjfi6zatscr2lmkvin7lfhhng6sxfbrch27iuufmu2mi4h3y/62288.json",
+      "proof": [
+        "0x2acb0aa0eb0ea68089d46ee7c9b4543943a96ca585ab9113cdbad90132874584",
+        "0x3b1cf000a35a0358e8e52c254e104f9d645aeddead00c134c69a262127a9b754"
+      ]
+    },
+    {
+      "title": "Topologia",
+      "start": 74576,
+      "digitsHash": "0xd333f942907c81d506fb1229437e23271d393008ac55cb6881f2557d8ea0c9e3",
+      "imageHash": "0x1d8f2b93c9bf4f2c8f51949d244688a1ffd58a5b845e9114f18853347922f3c2",
+      "tokenURI": "ipfs://bafybeiddpgxjfi6zatscr2lmkvin7lfhhng6sxfbrch27iuufmu2mi4h3y/74576.json",
+      "proof": [
+        "0x20274b3a0c1b58e59ac3db48a6c82092e32f8f119942b5076743585af4af8cc9",
+        "0x3b1cf000a35a0358e8e52c254e104f9d645aeddead00c134c69a262127a9b754"
+      ]
+    }
+  ],
+  "publication": {
+    "assetsPinned": false,
+    "metadataPinned": false,
+    "contractAddress": null,
+    "chainId": null,
+    "transactionHashes": []
+  }
+}

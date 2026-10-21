@@ -1,0 +1,64 @@
+{
+  "title": "Singularidade",
+  "status": "generated",
+  "start": 50000,
+  "length": 12288,
+  "endInclusive": 62287,
+  "noiseWidth": 64,
+  "noiseHeight": 64,
+  "mapping": "floor(three_decimal_digits * 256 / 1000)",
+  "piDatasetSha256": "bd7c97e5805aae9a1e4f69b303a3d4b271688a8aea32389be9c6b249b34e2800",
+  "digitsSha256": "95d2002ceb78583f2b06d2af9e556d490be670229ec2fe463576983d948e6dbc",
+  "noisePixelsSha256": "f71f75134eddad8b14c9d4e26b6f7912152a59581d4569368de6705f099a2ec2",
+  "referenceId": "7bf542ebb9a04b3ebfc8fe166a2b15edb23979565fbc8821488421f37b9c6a6b",
+  "referenceIdSchema": [
+    "kronos-pi-image-reference-v1",
+    50000,
+    12288,
+    "95d2002ceb78583f2b06d2af9e556d490be670229ec2fe463576983d948e6dbc",
+    "gemini-3.1-flash-image"
+  ],
+  "requestedModel": "gemini-3.1-flash-image",
+  "promptSha256": "9f73ed9cca0dfa84c8c5a0e0fb48d6757c1441eb1e769a5562d68aa6e7a2d2da",
+  "inputImage": "noise.png",
+  "inputImageSha256": "37e1dcaf700d40a35a5265861b582be3dc8066d880f73c50b618b0fe9ab958ea",
+  "generationMode": "text-and-image-to-image; Pi noise as visual reference, not model latent seed",
+  "reproducibility": "Pi noise is deterministic. Gemini final image is not guaranteed deterministic; preserve original output.",
+  "minted": false,
+  "sold": false,
+  "returnedModel": "gemini-3.1-flash-image",
+  "responseId": "zjTZauWiIY2PytMP3JSTqAo",
+  "usage": {
+    "promptTokenCount": 580,
+    "candidatesTokenCount": 1557,
+    "totalTokenCount": 2137,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 322
+      },
+      {
+        "modality": "IMAGE",
+        "tokenCount": 258
+      }
+    ],
+    "candidatesTokensDetails": [
+      {
+        "modality": "IMAGE",
+        "tokenCount": 1120
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "outputs": [
+    {
+      "file": "art.jpg",
+      "size": [
+        1024,
+        1024
+      ],
+      "fileSha256": "fe1807e5816a2b75ad3c1e4397f3ca969a2757731e462a17cc69dc8ff1a2dc3d",
+      "rgbaSha256": "1c05b9e7b6f1b45d87d85e3558b7c729ff5d5efa3ee89a2189b8b6b8a5de41bf"
+    }
+  ]
+}

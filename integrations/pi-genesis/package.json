@@ -1,0 +1,29 @@
+{
+  "name": "kronos-pi-genesis",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "package:assets": "node scripts/package-assets.mjs",
+    "test": "node --test --test-concurrency=1 test/*.test.mjs",
+    "prepare:transactions": "node scripts/prepare-transactions.mjs",
+    "check": "node --check scripts/build.mjs && node --check scripts/package-assets.mjs && node --check scripts/prepare-transactions.mjs && npm test"
+  },
+  "engines": { "node": ">=22" },
+  "overrides": {
+    "solc": { "tmp": "0.2.7" },
+    "@metamask/utils": { "uuid": "11.1.1" }
+  },
+  "devDependencies": {
+    "@ipld/car": "5.4.7",
+    "@openzeppelin/contracts": "5.6.1",
+    "@openzeppelin/merkle-tree": "1.0.8",
+    "blockstore-core": "7.0.1",
+    "ethers": "6.17.0",
+    "hardhat": "3.20.0",
+    "ipfs-unixfs-exporter": "16.2.3",
+    "ipfs-unixfs-importer": "17.1.1",
+    "solc": "0.8.37"
+  }
+}
