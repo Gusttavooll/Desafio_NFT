@@ -5,7 +5,7 @@ Marketplace de NFTs com catálogo, carrinho, checkout com carteiras simuladas e 
 > Estado atual: só a estrutura do projeto. As rotas exibem apenas o título da tela.
 
 ## Requisitos
-- Node.js 22.12 ou superior
+- Node.js 22.12 ou superior (Node 20 instala sem o binding nativo do Rolldown e o Vitest não inicia)
 - npm
 
 ## Setup
@@ -34,6 +34,24 @@ Defina num `.env.local` (fora do Git) ou no ambiente. Nenhuma é segredo.
 | `VITE_SOCKET_URL` | origem da página | URL do servidor Socket.IO |
 
 O Playwright já sobe o servidor com `VITE_ENABLE_MOCKS=true`.
+
+## Simulação (mocks)
+Com `VITE_ENABLE_MOCKS=true` o MSW responde à API. O estado fica no `localStorage` (chave `nft-simulation:v1`) e sobrevive ao refresh.
+
+**Colecionadores fictícios**
+
+| E-mail | Senha | Carteiras |
+|--------|-------|-----------|
+| `ana@kronos.test` | `Colecionador#1` | Carteira principal cadastrada |
+| `bruno@kronos.test` | `Colecionador#2` | nenhuma |
+
+**Cupons:** `KRONOS10` (10%, válido) e `EXPIRADO5` (expirado). Qualquer outro código é inexistente.
+
+**Cenários** (`?scenario=<nome>` na URL; vale até trocar ou resetar): `success` (padrão), `empty`, `slow`, `out-of-order`, `network-error`, `server-error`, `session-expired`, `register-conflict`, `coupon-invalid`, `coupon-expired`, `price-changed`, `edition-sold-out`, `order-timeout`, `payment-confirmed`, `payment-rejected`.
+
+**Controle dos mocks:** com a simulação ativa, `window.__mocks` expõe `setScenario`, `reset`, `emit` (dispara `nft.updated` ou `order.updated`) e `summary`. O Playwright usa esses métodos com `page.evaluate`.
+
+**Imagens das Fixtures:** `node scripts/generate-nft-images.mjs` recria os SVGs de `public/nfts/`.
 
 ## Stack
 React 19, TypeScript 6 (strict), Vite 8, TanStack Router (rotas file-based em `src/routes/`), TanStack Query, Axios, socket.io-client, Tailwind CSS 4, shadcn/ui, MSW 2 com `@mswjs/socket.io-binding` e Playwright.

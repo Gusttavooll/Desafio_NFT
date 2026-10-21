@@ -51,3 +51,5 @@ export {
 export { Skeleton } from "./ui/skeleton"
 export { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs"
 export { Textarea } from "./ui/textarea"
+export { PriceTag } from './PriceTag'
+export { QuantityStepper } from './QuantityStepper'

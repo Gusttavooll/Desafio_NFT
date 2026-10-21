@@ -11,18 +11,18 @@ import {
 // Senha com mostrar/ocultar; a senha só aparece por ação explícita.
 function PasswordInput({
   className,
+  autoComplete = "current-password",
   ...props
 }: Omit<React.ComponentProps<"input">, "type">) {
   const [visible, setVisible] = React.useState(false)
 
   return (
     <InputGroup data-slot="password-input" className={className}>
-      <InputGroupInput type={visible ? "text" : "password"} {...props} />
+      <InputGroupInput autoComplete={autoComplete} spellCheck={false} autoCorrect="off" autoCapitalize="none" {...props} type={visible ? "text" : "password"} />
       <InputGroupAddon align="inline-end">
         <InputGroupButton
           size="icon"
           aria-label={visible ? "Ocultar senha" : "Mostrar senha"}
-          aria-pressed={visible}
           disabled={props.disabled}
           onClick={() => setVisible((current) => !current)}
         >
