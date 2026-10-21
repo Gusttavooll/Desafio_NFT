@@ -15,3 +15,7 @@ Quatro devs trabalham ao mesmo tempo, cada um dono de contextos (ADR 0002). A ta
 - Outro contexto só via `index.ts` (`@/<camada>/<contexto>`). Se precisar de algo que ele ainda não exporta, pare e avise; não edite a pasta do outro dev.
 - `domain/shared`, `application/shared`, `mocks/core`, `ui/components`, `package*.json`, rotas novas e ADRs exigem PR próprio: não misture com a feature.
 - Antes de entregar, rode o agente `context-guard` para checar se o diff respeita a divisão.
+
+## Design
+- Estrutura das telas vem do Figma, resumida em `docs/design.md`. Não é pixel-perfect.
+- Estilização vem da skill `ui-ux-pro-max`, aplicada como tokens no `src/index.css`. Nunca copie cores, fontes ou medidas do Figma; use `ui/components`, `ui/layout` e as classes dos tokens.

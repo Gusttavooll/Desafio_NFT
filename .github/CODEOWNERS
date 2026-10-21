@@ -28,6 +28,8 @@
 /src/*/shared/                      @ozielrsdev @jairbonifacio @Samuel-Kepler @Gusttavooll
 /src/mocks/core/                    @ozielrsdev @jairbonifacio @Samuel-Kepler @Gusttavooll
 /src/ui/components/                 @ozielrsdev @jairbonifacio @Samuel-Kepler @Gusttavooll
+/src/ui/layout/                     @ozielrsdev @jairbonifacio @Samuel-Kepler @Gusttavooll
+/src/index.css                      @ozielrsdev @jairbonifacio @Samuel-Kepler @Gusttavooll
 /package.json                       @ozielrsdev @jairbonifacio @Samuel-Kepler @Gusttavooll
 /package-lock.json                  @ozielrsdev @jairbonifacio @Samuel-Kepler @Gusttavooll
 /docs/adr/                          @ozielrsdev @jairbonifacio @Samuel-Kepler @Gusttavooll
