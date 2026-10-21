@@ -73,7 +73,7 @@ O formulário valida no cliente, exibe os erros da API ligados aos campos e pres
 - **Layout:**
   - O `AccountLayout` compartilhado, com a sidebar "Meu perfil", vem da Fase 0, em `ui/layout`. Carteiras e Perfil apenas o usam.
   - A estrutura segue `docs/design.md`: Carteira principal com o formulário e "Salvar carteira", e Carteira secundária com o estado vazio, "Igual à carteira principal" e "Adicionar".
-  - O estilo vem dos tokens (skill `ui-ux-pro-max`).
+  - O estilo vem dos tokens do design system Kronos.
 - **Guard de rota:** exige Sessão. Sem Sessão, leva ao login guardando o retorno, usando o mecanismo de retomada do contexto Conta e Sessão.
 
 ## Decisões de teste
@@ -92,12 +92,12 @@ O formulário valida no cliente, exibe os erros da API ligados aos campos e pres
 
 ## Fora de escopo
 - Conexão real com extensões de carteira, assinatura de mensagens e leitura de saldo on-chain.
-- Exclusão de Carteiras: o Figma não tem essa ação.
+- Exclusão de Carteiras: os frames originais não tinham essa ação.
 - Mais de uma Carteira secundária.
 - Verificação real de ENS ou de propriedade do endereço.
 - Itens da sidebar fora do escopo do PRD: Atividade, Ofertas, Arquivos baixados e Suporte.
 
 ## Notas
-- O formulário do Figma tem "Código de indicação" obrigatório, sem regra no PRD. Proposta: campo opcional e sem efeito, alinhado com a spec de Pedidos.
-- "Nome de exibição", "Nome do perfil" e "E-mail" se repetem entre Perfil, Carteira e Checkout. Vale confirmar com o contexto Conta e Sessão se a Carteira guarda cópias próprias ou referencia o perfil. Proposta: cópias próprias na Carteira, como mostra o Figma.
+- O formulário dos frames originais tinha "Código de indicação" obrigatório, sem regra no PRD. Proposta: campo opcional e sem efeito, alinhado com a spec de Pedidos.
+- "Nome de exibição", "Nome do perfil" e "E-mail" se repetem entre Perfil, Carteira e Checkout. Vale confirmar com o contexto Conta e Sessão se a Carteira guarda cópias próprias ou referencia o perfil. Proposta: cópias próprias na Carteira, como nos frames originais.
 - A lista de Redes e de tipos de carteira deve vir das fixtures da Simulação, para que Pedidos e Carteiras usem os mesmos valores.

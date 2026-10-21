@@ -1,6 +1,6 @@
 # Arquitetura
 
-> Proposta inicial a partir do enunciado do desafio. Decisões que mudarem durante a implementação devem virar ADR em `docs/adr/`. Limitações e desvios do Figma vão no `ARCHITECTURE.md` da raiz, conforme o enunciado.
+> Proposta inicial a partir do enunciado do desafio. Decisões que mudarem durante a implementação devem virar ADR em `docs/adr/`. Limitações e desvios do design system Kronos vão no `ARCHITECTURE.md` da raiz, conforme o enunciado.
 
 ## Visão geral
 SPA em React + TypeScript (Vite). Toda a API e os eventos em tempo real são simulados na camada de rede com MSW, de modo que o código da aplicação fala com "uma API real" via Axios e socket.io-client, sem saber que existem mocks.

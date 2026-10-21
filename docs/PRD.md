@@ -13,7 +13,7 @@ O produto deve ser confiável mesmo em condições ruins de rede: nunca duplicar
 ## Objetivos e métricas de sucesso
 | Objetivo | Métrica |
 |----------|---------|
-| Fidelidade ao Figma (desktop e mobile) | Regressão visual Playwright estável em início, detalhe, carrinho e pagamento |
+| Fidelidade ao design system Kronos (desktop e mobile) | Regressão visual Playwright estável em início, detalhe, carrinho e pagamento |
 | Fluxos completos de compra e conta | Compra do catálogo ao recibo confirmado passando em E2E |
 | Resiliência | Timeout após criação do pedido recupera o mesmo pedido pela chave de idempotência |
 | Tempo real | `nft.updated` e `order.updated` tratados com duplicatas, eventos antigos e reconexão, via socket.io-client |
@@ -77,7 +77,7 @@ O produto deve ser confiável mesmo em condições ruins de rede: nunca duplicar
 ### Interface e acessibilidade
 - Desktop, tablet e mobile (390, 768 e 1440 px), sem overflow horizontal.
 - Skeletons com shimmer em catálogo, detalhe e resumo do carrinho, sem deslocamento de layout e respeitando `prefers-reduced-motion`.
-- Perfil, carteiras e confirmação funcionam em mobile mesmo sem frame no Figma.
+- Perfil, carteiras e confirmação funcionam em mobile mesmo sem desenho de referência dedicado.
 
 ### Entrega
 - Repositório com código, lockfile, assets, mocks, fixtures, testes e configuração do Lighthouse.

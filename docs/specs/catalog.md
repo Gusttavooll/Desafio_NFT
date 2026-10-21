@@ -106,7 +106,7 @@ O Visitante e o Colecionador precisam encontrar NFTs num catálogo grande e esco
 75. Como Avaliador do desafio, quero alternar Cenários (vazio, latência, fora de ordem, falha, 5xx, NFT inexistente, Edição esgotada) e reproduzir cada estado do Catálogo, para verificar a resiliência.
 76. Como Avaliador do desafio, quero fixtures com coleções, redes e preços variados suficientes para várias páginas, para testar filtros e paginação.
 77. Como Avaliador do desafio, quero que o Lighthouse do Início e do detalhe atinja as metas do PRD em mobile e desktop, para validar performance e acessibilidade.
-78. Como Avaliador do desafio, quero regressão visual estável do Início e do detalhe, para conferir a estrutura do Figma.
+78. Como Avaliador do desafio, quero regressão visual estável do Início e do detalhe, para conferir a estrutura definida em `docs/design.md`.
 
 ## Decisões de implementação
 

@@ -69,7 +69,7 @@ Um Carrinho que guarda Itens do carrinho por Edição de NFT com quantidade inte
 58. Como Avaliador do desafio, quero ativar latência variável e respostas fora de ordem na Cotação e ver o resumo correto no fim, para validar a resiliência.
 59. Como Avaliador do desafio, quero ativar falha 5xx na Cotação e ver o erro com opção de tentar de novo, para validar o tratamento de falhas.
 60. Como Avaliador do desafio, quero montar um Carrinho como Visitante, autenticar com um dos usuários de fixture e ver a mesclagem, para validar a preservação ao autenticar.
-61. Como Avaliador do desafio, quero comparar o Carrinho com o Figma em desktop e mobile na regressão visual, para validar a estrutura.
+61. Como Avaliador do desafio, quero comparar o Carrinho com `docs/design.md` e o Kronos em desktop e mobile na regressão visual, para validar a estrutura.
 
 ## Decisões de implementação
 - **Fonte da verdade**:
@@ -138,7 +138,7 @@ Um Carrinho que guarda Itens do carrinho por Edição de NFT com quantidade inte
 - **Estrutura da tela** segue `docs/design.md`:
   - Desktop: tabela de itens e coluna de resumo.
   - Mobile: cards e resumo fixo.
-  - O estilo vem dos tokens definidos pela skill `ui-ux-pro-max`.
+  - O estilo vem dos tokens do design system Kronos (`kronos-design-system.html`).
 
 ## Decisões de teste
 - **O que é um bom teste:**
@@ -182,4 +182,4 @@ Um Carrinho que guarda Itens do carrinho por Edição de NFT com quantidade inte
 - O formato de `details` para o erro de Cupom (campo e motivo `invalid`/`expired`) precisa ser combinado com @Samuel-Kepler na Fase 0 (contratos e `mocks/core`).
 - Ainda falta decidir se o Visitante usa `POST /quotes` sem Sessão ou se a Cotação do Visitante é anônima. Esta spec assume `POST /quotes` aberto para o Visitante.
 - A biblioteca de decimais para `EthAmount` continua pendente (ADR futuro). Esta spec não depende dela, porque o Carrinho não faz aritmética de valores.
-- O rótulo "Desconto do lançamento" no Figma corresponde ao desconto da Cotação.
+- O rótulo "Desconto do lançamento" na referência original corresponde ao desconto da Cotação.
