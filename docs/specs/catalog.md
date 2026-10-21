@@ -177,4 +177,4 @@ O Visitante e o Colecionador precisam encontrar NFTs num catálogo grande e esco
 - **Endpoint de Destaques:** `docs/architecture.md` não define um. Proponho `GET /nfts?featured=true`, a confirmar com o dono de Simulação/contratos.
 - **Contagens por filtro:** as contagens por coleção e Rede vêm na própria resposta de `GET /nfts` (facets). O contrato precisa ser fechado com o dono de Simulação/contratos.
 - **Limite por compra:** é um campo da Edição definido pela API. A Cotação e o pedido revalidam no servidor, e o limite no Catálogo serve só para a interface.
-- **Dependências bloqueantes:** a aritmética de `EthAmount` (comparar preços) depende da decisão pendente sobre a biblioteca de decimais. "Comprar" depende da ação pública de adicionar item do Carrinho, e até ela existir usa um stub combinado com @jairbonifacio.
+- **Dependências bloqueantes:** a aritmética de `EthAmount` (comparar preços) depende da decisão pendente sobre a biblioteca de decimais. "Comprar" depende da ação pública de adicionar item do Carrinho, e até ela existir usa um stub combinado com @jairbonifacio-collab.

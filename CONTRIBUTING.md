@@ -7,7 +7,7 @@ Quatro devs trabalham em paralelo, cada um dono de bounded contexts (ver `docs/a
 | Dev | Contextos | Pastas | Rotas | Branch base |
 |-----|-----------|--------|-------|-------------|
 | @ozielrsdev | Catálogo e Favoritos | `src/*/catalog`, `tests/e2e/catalog` | `/`, `/nfts/$nftId` | `feat/catalog` |
-| @jairbonifacio | Carrinho e Cotação | `src/*/cart`, `tests/e2e/cart` | `/cart` | `feat/cart` |
+| @jairbonifacio-collab | Carrinho e Cotação | `src/*/cart`, `tests/e2e/cart` | `/cart` | `feat/cart` |
 | @Samuel-Kepler | Pedidos e Carteiras | `src/*/orders`, `src/*/wallets`, `tests/e2e/{orders,wallets}` | `/checkout`, `/checkout/confirmation`, `/wallets` | `feat/orders-wallets` |
 | @Gusttavooll | Conta e Sessão, Tempo real | `src/*/account`, `src/*/realtime`, `tests/e2e/{account,realtime}` | `/login`, `/register`, `/profile` | `feat/account-realtime` |
 
@@ -17,7 +17,7 @@ Cada dev entrega uma peça compartilhada em PR próprio para o `main`. As featur
 | Dev | Branch | Entrega |
 |-----|--------|---------|
 | @ozielrsdev | `chore/foundation-design-system` | Tokens visuais definidos com a skill `ui-ux-pro-max` no `src/index.css` (variáveis do shadcn) e componentes base em `ui/components` (Button, Input, PasswordInput, Select, Textarea, RadioGroup, Dialog, Sheet, Tabs, Skeleton, Badge) |
-| @jairbonifacio | `chore/foundation-layout` | `ui/layout`: `AppShell` (Header, Footer, Breadcrumb, Tab Bar mobile) e `AccountLayout`, aplicados no `__root.tsx`; `PriceTag` e `QuantityStepper` em `ui/components` |
+| @jairbonifacio-collab | `chore/foundation-layout` | `ui/layout`: `AppShell` (Header, Footer, Breadcrumb, Tab Bar mobile) e `AccountLayout`, aplicados no `__root.tsx`; `PriceTag` e `QuantityStepper` em `ui/components` |
 | @Samuel-Kepler | `chore/foundation-contracts` | Tipos dos contratos REST (`docs/architecture.md`) nas pastas `infrastructure/<contexto>`; `mocks/core` (estado simulado, cenários, reset) e fixtures (2 usuários e NFTs variados, com imagens em `public/`) |
 | @Gusttavooll | `chore/foundation-session` | `useSession()` mínimo em `application/account` (visitante ou colecionador, usado nas query keys), interceptor de 401 no `http-client` e ciclo de vida do socket |
 

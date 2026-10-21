@@ -1,6 +1,6 @@
 # Spec: Carrinho e Cotação
 
-Contexto: Carrinho e Cotação (`cart`) · Dono: @jairbonifacio · Branch: `feat/cart` · Depende de: Catálogo (NFT, Edição, Disponibilidade), Conta e Sessão (Sessão, Visitante/Colecionador), Tempo real (`nft.updated`), Simulação (cenários e fixtures)
+Contexto: Carrinho e Cotação (`cart`) · Dono: @jairbonifacio-collab · Branch: `feat/cart` · Depende de: Catálogo (NFT, Edição, Disponibilidade), Conta e Sessão (Sessão, Visitante/Colecionador), Tempo real (`nft.updated`), Simulação (cenários e fixtures)
 
 ## Problema
 Quem navega no marketplace quer juntar vários NFTs antes de pagar e saber exatamente quanto vai pagar. Preço e Disponibilidade mudam em tempo real, a rede pode falhar e a pessoa pode começar como Visitante e só autenticar no fim. Se o Carrinho perder itens ao recarregar a página ou ao fazer login, aceitar quantidades acima da Disponibilidade, calcular totais no cliente com `number` (perdendo precisão) ou mostrar um total diferente do que a API vai cobrar, o colecionador perde a confiança e o checkout falha depois.
