@@ -12,7 +12,8 @@ Marketplace de NFTs: descoberta e compra de NFTs, carrinho, checkout com carteir
 
 ## Comandos
 - Instalar: `npm ci`
-- Testes: `npx playwright test`
+- Testes unitários (domínio): `npm run test:unit` (Vitest, `src/**/*.test.ts`)
+- Testes E2E: `npx playwright test`
 - Lint: `npm run lint` (eslint + `tsc --noEmit`)
 - Build: `npm run build`
 
