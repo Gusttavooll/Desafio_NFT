@@ -75,6 +75,12 @@ export function createSessionStore({ tokens, clearCache }: SessionStoreDependenc
       change({ status: 'guest' }, null)
     },
 
+    // Visitante sem apagar o token: usado quando a Sessão não pôde ser verificada por falha transitória.
+    continueAsGuest() {
+      token = null
+      change({ status: 'guest' }, null)
+    },
+
     // A retomada (login e volta à rota) decide depois se a Sessão termina ou é renovada.
     expireSession() {
       expired.emit()
