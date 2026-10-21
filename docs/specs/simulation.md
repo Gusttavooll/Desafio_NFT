@@ -84,11 +84,11 @@ A simulação fica ativa no dev, nos testes e no build de demonstração publica
   - Esta decisão resolve a pendência 4 do `docs/architecture.md` e deve virar ADR na mesma Fase 0.
 - **Fixtures.**
   - **Colecionadores:** pelo menos dois, com e-mail e senha fictícios documentados no README.
-  - **NFTs:** pelo menos 24, para gerar mais de uma página do Catálogo. Os nomes seguem o Figma (Emerald Ape #042, Sage Nomad #009, Neon Vessel #552, Cosmic Bloom #118, Violet Nomad #314, Ivory Baron #088, Golden Beat #207, Golden Signal #160 e variações).
+  - **NFTs:** pelo menos 24, para gerar mais de uma página do Catálogo. Os nomes seguem os frames originais (Emerald Ape #042, Sage Nomad #009, Neon Vessel #552, Cosmic Bloom #118, Violet Nomad #314, Ivory Baron #088, Golden Beat #207, Golden Signal #160 e variações).
   - **Variação dos NFTs:** coleções, redes (Ethereum, Polygon, Solana) e faixas de preço diferentes, com preço antigo opcional, NFTs marcados como Destaque, várias Edições por NFT (1/1, 1/10, 1/50, aberta) com Disponibilidade distinta e pelo menos uma Edição esgotada.
   - **Cupons:** um válido, um expirado e um inexistente.
   - **Taxa de rede:** um valor por Rede.
-  - **Imagens:** exportadas do Figma e servidas como assets estáticos.
+  - **Imagens:** servidas como assets estáticos do repositório, exibidas em moldura `art-frame` do Kronos (quadradas, sem raio).
 - **Senha e token.**
   - A senha é guardada como hash (Web Crypto, SHA-256 com salt por usuário), nunca em claro.
   - O token de Sessão é opaco, aleatório e associado ao Colecionador e a uma expiração no estado simulado.

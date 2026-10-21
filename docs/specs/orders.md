@@ -76,7 +76,7 @@ O Pedido passa por `pending` até chegar a um estado terminal, `confirmed` ou `r
 61. Como Avaliador do desafio, quero selecionar os cenários "preço alterado" e "edição esgotada", para comprovar a Revalidação.
 62. Como Avaliador do desafio, quero ver o reuso de uma Chave de idempotência com conteúdo diferente gerar `idempotency_conflict`, para comprovar a proteção da API.
 63. Como Avaliador do desafio, quero ver no E2E a compra completa do catálogo ao Recibo confirmado, para validar o fluxo principal do PRD.
-64. Como Avaliador do desafio, quero uma regressão visual estável da página de pagamento em desktop e mobile, para verificar a fidelidade estrutural ao Figma.
+64. Como Avaliador do desafio, quero uma regressão visual estável da página de pagamento em desktop e mobile, para verificar a fidelidade estrutural a `docs/design.md` e ao Kronos.
 
 ## Decisões de implementação
 - **Módulos do contexto:**
@@ -122,8 +122,8 @@ O Pedido passa por `pending` até chegar a um estado terminal, `confirmed` ou `r
 - **Após a confirmação:** o contexto Carrinho expõe uma operação para remover itens e quantidades comprados. Pedidos chama essa operação com os itens do Recibo, nunca limpa o Carrinho inteiro.
 - **Recibo:** é exibido a partir do snapshot devolvido pela API e nunca é recalculado com dados do Catálogo. O link de explorador aponta para uma URL simulada da Transação.
 - **Interface:**
-  - A estrutura segue `docs/design.md`: formulário à esquerda, "Seus NFTs" + `QuoteSummary` + "Carteira e rede" à direita, e "Confirmar compra" no fim. O modal de confirmação segue o frame do Figma; no mobile vira tela inteira.
-  - O estilo vem dos tokens (skill `ui-ux-pro-max`), não do Figma.
+  - A estrutura segue `docs/design.md`: formulário à esquerda, "Seus NFTs" + `QuoteSummary` + "Carteira e rede" à direita, e "Confirmar compra" no fim. O modal de confirmação segue `docs/design.md`; no mobile vira tela inteira.
+  - O estilo vem dos tokens do design system Kronos.
   - O formulário e a seleção de Carteira e Rede consomem a API pública de Carteiras.
 
 ## Decisões de teste
@@ -150,10 +150,10 @@ O Pedido passa por `pending` até chegar a um estado terminal, `confirmed` ou `r
 - Histórico ou listagem de Pedidos do Colecionador. Só o Pedido atual e o seu Recibo.
 - Cancelamento, reembolso ou estorno de Pedido.
 - Envio de recibo por e-mail.
-- Código de indicação com efeito real: o campo existe no Figma, mas não altera a Cotação.
+- Código de indicação com efeito real: o campo existe nos frames originais, mas não altera a Cotação.
 - Link de explorador real (Etherscan).
 
 ## Notas
-- O frame do Figma tem "Código de indicação" obrigatório. O PRD não fala desse campo. Proposta: mantê-lo opcional e sem efeito até que alguém decida o contrário.
+- Os frames originais tinham "Código de indicação" obrigatório. O PRD não fala desse campo. Proposta: mantê-lo opcional e sem efeito até que alguém decida o contrário.
 - O formulário de Checkout repete campos da Carteira (endereço, tipo, ENS). Decisão: o Checkout usa uma Carteira já cadastrada e só permite escolher entre principal e secundária. O cadastro e a edição ficam no contexto Carteiras.
 - A duração do timeout do envio e o intervalo de consulta do Pedido `pending` devem entrar no ADR de política de cache e retries, que é uma decisão pendente.

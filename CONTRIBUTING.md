@@ -16,7 +16,7 @@ Cada dev entrega uma peça compartilhada em PR próprio para o `main`. As featur
 
 | Dev | Branch | Entrega |
 |-----|--------|---------|
-| @ozielrsdev | `chore/foundation-design-system` | Tokens visuais definidos com a skill `ui-ux-pro-max` no `src/index.css` (variáveis do shadcn) e componentes base em `ui/components` (Button, Input, PasswordInput, Select, Textarea, RadioGroup, Dialog, Sheet, Tabs, Skeleton, Badge) |
+| @ozielrsdev | `chore/foundation-design-system` | Tokens visuais do design system Kronos (`kronos-design-system.html`) no `src/index.css` (variáveis do shadcn) e componentes base em `ui/components` (Button, Input, PasswordInput, Select, Textarea, RadioGroup, Dialog, Sheet, Tabs, Skeleton, Badge) |
 | @jairbonifacio-collab | `chore/foundation-layout` | `ui/layout`: `AppShell` (Header, Footer, Breadcrumb, Tab Bar mobile) e `AccountLayout`, aplicados no `__root.tsx`; `PriceTag` e `QuantityStepper` em `ui/components` |
 | @Samuel-Kepler | `chore/foundation-contracts` | Tipos dos contratos REST (`docs/architecture.md`) nas pastas `infrastructure/<contexto>`; `mocks/core` (estado simulado, cenários, reset) e fixtures (2 usuários e NFTs variados, com imagens em `public/`) |
 | @Gusttavooll | `chore/foundation-session` | `useSession()` mínimo em `application/account` (visitante ou colecionador, usado nas query keys), interceptor de 401 no `http-client` e ciclo de vida do socket |
