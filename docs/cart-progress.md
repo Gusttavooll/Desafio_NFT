@@ -21,3 +21,5 @@ Por AGENTS.md, não editar o contexto dos colegas para inventar essas interfaces
 6. Eventos de disponibilidade/preço via interface do contexto Tempo real e E2E desktop/mobile.
 
 A função `mergeCarts` calcula uma proposta de mesclagem, não oferece idempotência de rede. A mesma tentativa deve ser identificada e deduplicada no servidor/mocks antes de reutilizá-la. Checkout, recibo, carteira e Stripe não fazem parte da entrega original de Carrinho.
+
+Atualização posterior: PR #13 entrou no main 53deadb durante a sessão e passou a exportar `useSession`. Esta branch ainda usa a base anterior; atualizar antes da próxima etapa. O bloqueio de Sessão foi resolvido no upstream, os contratos de Catálogo/Cotação ainda precisam de revisão.
