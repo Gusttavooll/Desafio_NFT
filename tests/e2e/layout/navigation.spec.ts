@@ -1,0 +1,20 @@
+import { expect, test } from '@playwright/test'
+
+test('layout, navegação e conta mantêm um main e não transbordam', async ({ page }, info) => {
+  await page.goto('/')
+  await expect(page.getByRole('main')).toHaveCount(1)
+  await expect(page.getByRole('link', { name: 'Kronos Archive, início' })).toBeVisible()
+  await page.keyboard.press('Tab')
+  await expect(page.getByRole('link', { name: 'Pular para o conteúdo' })).toBeFocused()
+  await page.keyboard.press('Enter')
+  await expect(page.getByRole('main')).toBeFocused()
+  const nav = page.getByRole('navigation', { name: info.project.name === 'mobile' ? 'Navegação mobile' : 'Navegação principal', exact: true })
+  await nav.getByRole('link', { name: 'Carrinho', exact: true }).click()
+  await expect(page).toHaveURL(/\/cart$/)
+  await page.goto('/profile')
+  await page.getByRole('navigation', { name: 'Minha conta', exact: true }).getByRole('link', { name: 'Carteiras', exact: true }).click()
+  await expect(page).toHaveURL(/\/wallets$/)
+  await expect(page.getByRole('main')).toHaveCount(1)
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)
+  expect(overflow).toBe(false)
+})

@@ -1,4 +1,6 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router'
+import { AppShell, AccountLayout } from '@/ui/layout'
+import { useRouterState } from '@tanstack/react-router'
 
 export const Route = createRootRoute({
   component: RootLayout,
@@ -6,10 +8,10 @@ export const Route = createRootRoute({
 })
 
 function RootLayout() {
+  const pathname = useRouterState({ select: state => state.location.pathname })
+  const account = pathname === '/profile' || pathname === '/wallets'
   return (
-    <main className="mx-auto max-w-7xl p-4">
-      <Outlet />
-    </main>
+    <AppShell>{account ? <AccountLayout><Outlet /></AccountLayout> : <Outlet />}</AppShell>
   )
 }
 
