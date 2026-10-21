@@ -12,6 +12,11 @@ export interface Wallet {
   network: Network
   type: WalletType
   nickname: string
+  displayName: string
+  username: string
+  email: string
+  ensName?: string
+  sameAsPrimary?: boolean
 }
 
 // Carteira padrão do Colecionador no Checkout.

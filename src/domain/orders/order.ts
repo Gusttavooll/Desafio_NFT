@@ -18,6 +18,7 @@ export interface ReceiptItem {
   nftId: string
   editionId: string
   title: string
+  image?: string
   tokenId: string
   editionLabel: string
   quantity: number

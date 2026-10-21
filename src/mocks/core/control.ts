@@ -16,6 +16,8 @@ export interface MockControl {
   setScenario: (name: string) => void
   reset: (scenario?: string) => void
   emit: (input: EmitInput<unknown>) => void
+  disconnect: () => void
+  reconnect: () => void
   summary: () => MockControlSummary
 }
 
@@ -27,6 +29,8 @@ function toScenario(name: string): ScenarioName {
 // Só deve ser chamado quando a simulação está ativa, para o controle nunca vazar para um build sem mocks.
 export function installMockControl(sim: Simulation, target: { __mocks?: MockControl } = globalThis as { __mocks?: MockControl }): MockControl {
   const control: MockControl = {
+    disconnect: () => globalThis.dispatchEvent?.(new Event('kronos-mock-disconnect')),
+    reconnect: () => globalThis.dispatchEvent?.(new Event('kronos-mock-reconnect')),
     setScenario: (name) => sim.setScenario(toScenario(name)),
     reset: (scenario) => sim.reset(scenario === undefined ? undefined : toScenario(scenario)),
     emit: (input) => {

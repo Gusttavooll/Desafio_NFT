@@ -1,0 +1,115 @@
+import { expect, test, type Page } from '@playwright/test'
+
+async function reachCheckout(page: Page) {
+  await page.goto('/nfts/emerald-ape-042')
+  await page.getByRole('button', { name: 'Adicionar ao carrinho', exact: true }).click()
+  await page.getByRole('link', { name: 'Ver carrinho →' }).click()
+  await expect(page.getByRole('heading', { name: 'Carrinho', exact: true })).toBeVisible()
+  const related = page.getByRole('region', { name: 'Colecionadores também viram' })
+  await expect(related).toBeVisible()
+  await expect(related.getByRole('link').first()).toHaveAttribute('href', /\/nfts\//)
+  await page.getByRole('link', { name: 'Conectar e finalizar' }).click()
+  await page.getByLabel('E-mail', { exact: true }).fill('ana@kronos.test')
+  await page.getByLabel('Senha', { exact: true }).fill('Colecionador#1')
+  await page.getByRole('button', { name: 'Entrar', exact: true }).click()
+  await expect(page).toHaveURL(/\/checkout\/?$/)
+  await expect(page.getByRole('heading', { name: 'Finalize sua coleção.' })).toBeVisible()
+  await expect(page.getByRole('radio', { name: 'Coleção Polygon, carteira secundária, polygon', exact: true })).toBeVisible()
+  await page.getByRole('button', { name: 'Conectar carteira simulada' }).click()
+  await expect(page.getByRole('button', { name: 'Confirmar compra simulada' })).toBeEnabled()
+}
+async function scenario(page: Page, value: string) {
+  await page.evaluate(value => (window as unknown as { __mocks: { setScenario: (value: string) => void } }).__mocks.setScenario(value), value)
+}
+
+test('compra pela UI do visitante até o recibo, com refresh e teclado', async ({ page }, info) => {
+  const creates: string[] = []
+  page.on('request', request => { if (request.method() === 'POST' && request.url().endsWith('/api/orders')) creates.push(request.headers()['idempotency-key'] ?? '') })
+  await reachCheckout(page)
+  const thumbnail = page.getByRole('img', { name: 'Miniatura de Emerald Ape', exact: true })
+  await expect(thumbnail).toBeVisible()
+  await expect.poll(() => thumbnail.evaluate(element => (element as HTMLImageElement).naturalWidth)).toBeGreaterThan(0)
+  const thumbnailSource = await thumbnail.getAttribute('src')
+  const initialViewport = page.viewportSize()
+  for (const width of [390, 768, 1440]) {
+    await page.setViewportSize({ width, height: 900 })
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+  }
+  if (initialViewport) await page.setViewportSize(initialViewport)
+  await page.evaluate(() => {
+    if (document.activeElement instanceof HTMLElement) document.activeElement.blur()
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  })
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
+  await page.screenshot({ path: info.outputPath('checkout.png'), fullPage: true, animations: 'disabled' })
+  await page.getByRole('button', { name: 'Confirmar compra simulada' }).click()
+  await expect(page.getByRole('heading', { name: 'Processando seu pedido.' })).toBeVisible()
+  await page.reload()
+  await expect(page.getByRole('dialog')).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Compra confirmada.' })).toBeVisible()
+  expect(creates).toHaveLength(1)
+  await expect(page.getByRole('dialog')).toContainText('Emerald Ape')
+  await expect(page.getByRole('dialog').getByRole('img', { name: 'Miniatura de Emerald Ape', exact: true })).toHaveAttribute('src', thumbnailSource!)
+  const receipt = await page.getByRole('dialog').textContent()
+  const url = page.url()
+  await page.reload()
+  await expect(page.getByRole('dialog')).toHaveText(receipt!)
+  await expect(page.getByRole('dialog').getByRole('img', { name: 'Miniatura de Emerald Ape', exact: true })).toHaveAttribute('src', thumbnailSource!)
+  await page.screenshot({ path: info.outputPath('receipt.png'), fullPage: true, animations: 'disabled' })
+  await page.keyboard.press('Escape')
+  await expect(page.getByRole('dialog')).toHaveCount(0)
+  await page.goto('/cart')
+  await expect(page.getByRole('heading', { name: 'Seu carrinho está vazio.' })).toBeVisible()
+  await page.goto(url)
+  await expect(page.getByRole('heading', { name: 'Compra confirmada.' })).toBeVisible()
+})
+
+test('timeout após criação recupera a mesma chave e um único pedido', async ({ page }) => {
+  const keys: string[] = []
+  page.on('request', request => { if (request.method() === 'POST' && request.url().endsWith('/api/orders')) keys.push(request.headers()['idempotency-key'] ?? '') })
+  await reachCheckout(page)
+  await scenario(page, 'order-timeout')
+  await page.getByRole('button', { name: 'Confirmar compra simulada' }).click()
+  await expect(page.getByRole('heading', { name: 'Compra confirmada.' })).toBeVisible({ timeout: 12000 })
+  expect(keys).toHaveLength(2)
+  expect(keys[0]).toBeTruthy()
+  expect(keys[0]).toBe(keys[1])
+  const orders = await page.evaluate(() => (window as unknown as { __mocks: { summary: () => { orders: unknown[] } } }).__mocks.summary().orders)
+  expect(orders).toHaveLength(1)
+})
+
+test('checkout com latência variável confirma sem trocar o cenário', async ({ page }) => {
+  test.setTimeout(60000)
+  const keys: string[] = []
+  page.on('request', request => { if (request.method() === 'POST' && request.url().endsWith('/api/orders')) keys.push(request.headers()['idempotency-key'] ?? '') })
+  await reachCheckout(page)
+  await scenario(page, 'slow')
+  await page.getByRole('button', { name: 'Confirmar compra simulada' }).click()
+  await expect(page.getByRole('heading', { name: 'Compra confirmada.' })).toBeVisible({ timeout: 20000 })
+  expect(keys).toHaveLength(1)
+  const state = await page.evaluate(() => (window as unknown as { __mocks: { summary: () => { scenario: string; orders: unknown[] } } }).__mocks.summary())
+  expect(state.scenario).toBe('slow')
+  expect(state.orders).toHaveLength(1)
+})
+
+test('pagamento recusado preserva carrinho e não mostra recibo', async ({ page }) => {
+  await reachCheckout(page)
+  await scenario(page, 'payment-rejected')
+  await page.getByRole('button', { name: 'Confirmar compra simulada' }).click()
+  await expect(page.getByRole('heading', { name: 'Pedido recusado.' })).toBeVisible()
+  await expect(page.getByRole('dialog')).toHaveCount(0)
+  await page.getByRole('link', { name: 'Voltar ao carrinho', exact: true }).click()
+  await expect(page.getByRole('region', { name: 'Itens do carrinho' })).toContainText('Emerald Ape')
+})
+
+test('preço alterado exige segunda confirmação explícita', async ({ page }) => {
+  await reachCheckout(page)
+  await scenario(page, 'price-changed')
+  await page.getByRole('button', { name: 'Confirmar compra simulada' }).click()
+  await expect(page.getByText('A cotação mudou.', { exact: true })).toBeVisible()
+  await expect(page.getByRole('dialog')).toHaveCount(0)
+  const orders = await page.evaluate(() => (window as unknown as { __mocks: { summary: () => { orders: unknown[] } } }).__mocks.summary().orders)
+  expect(orders).toHaveLength(0)
+  await page.getByRole('button', { name: 'Aceitar nova cotação e confirmar' }).click()
+  await expect(page.getByRole('heading', { name: 'Compra confirmada.' })).toBeVisible()
+})

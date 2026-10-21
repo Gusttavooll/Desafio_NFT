@@ -13,3 +13,4 @@ export {
   type KeyValueStorage,
   type SessionTokenStorage,
 } from './session-token-storage'
+export { accountApiError, changePassword, getProfile, loginRequest, logoutRequest, registerRequest, updateAvatar, updateProfile } from './account-api'

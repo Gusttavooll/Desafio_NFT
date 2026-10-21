@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test'
+import { closeFilters, openFilters } from './filter-controls'
 
 test('explorar, filtrar, paginar e abrir obras do catálogo compartilhado', async ({ page }, info) => {
   await page.goto('/')
@@ -11,8 +12,10 @@ test('explorar, filtrar, paginar e abrir obras do catálogo compartilhado', asyn
   await page.getByRole('button', { name: 'Próxima', exact: true }).click()
   await expect(page).toHaveURL(/page=2/)
   await expect(page.locator('.nft-card')).toHaveCount(3)
+  await openFilters(page)
   await page.getByRole('button', { name: /Primatas Esmeralda/ }).click()
   await expect(page).toHaveURL(/page=1/)
+  await closeFilters(page)
   await expect(page.locator('.nft-card')).toHaveCount(3)
   await page.getByRole('searchbox', { name: 'Buscar obras' }).fill('#101')
   await expect(page.locator('.nft-card')).toHaveCount(1)
@@ -26,10 +29,10 @@ test('explorar, filtrar, paginar e abrir obras do catálogo compartilhado', asyn
   await page.getByLabel('Ordenar obras').selectOption('price-asc')
   await expect(page.locator('.nft-card').first()).toContainText('Neon Vessel')
   await page.goto('/nfts/emerald-ape-042')
-  await expect(page.getByRole('heading', { name: 'Emerald Ape', exact: true })).toBeVisible()
-  await expect(page.locator('.price-tag')).toContainText('1.850')
+  await expect(page.getByRole('heading', { name: 'Emerald Ape', exact: true, level: 1 })).toBeVisible()
+  await expect(page.locator('.detail-price .price-tag')).toContainText('1.850')
   await page.reload()
-  await expect(page.getByRole('heading', { name: 'Emerald Ape', exact: true })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Emerald Ape', exact: true, level: 1 })).toBeVisible()
   await page.goto('/nfts/inexistente')
   await expect(page.getByRole('heading', { name: 'Obra não encontrada.' })).toBeVisible()
 })

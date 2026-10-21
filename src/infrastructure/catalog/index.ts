@@ -9,3 +9,5 @@ export type {
   NftSort,
 } from './dto'
 export { getCatalog, getNft } from './catalog-api'
+export { getFavorites, setFavorite } from './favorites-api'
+export { getFeatured, getRelated } from './featured-api'

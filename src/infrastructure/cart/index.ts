@@ -9,3 +9,5 @@ export type {
   QuoteRequest,
   UpdateCartItemBody,
 } from './dto'
+export { getCart, mergeCart, postCartItem, patchCartItem, deleteCartItem, requestQuote, revalidateQuote, cartPreferences } from './cart-api'
+export { mergeCartPreferences } from './cart-api'

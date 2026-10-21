@@ -98,6 +98,7 @@ function build(seed: NftSeed, index: number): NftDto {
     label,
     price: formatMilliEth(Math.round((seed.priceMilli * tenths) / 10)),
     available,
+    purchaseLimit: 10,
   }))
   const attributes = Object.entries(ATTRIBUTE_POOL).map(([trait, values], i) => ({
     trait,

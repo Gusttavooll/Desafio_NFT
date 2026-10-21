@@ -2,7 +2,7 @@ import type { Network } from '@/domain/wallets'
 import type { CollectorDto } from '@/infrastructure/account'
 import type { NftDto } from '@/infrastructure/catalog'
 import type { CartItemDto } from '@/infrastructure/cart'
-import type { OrderDto } from '@/infrastructure/orders'
+import type { CreateOrderBody, OrderDto } from '@/infrastructure/orders'
 import type { WalletDto } from '@/infrastructure/wallets'
 import type { ScenarioName } from './scenario'
 
@@ -21,6 +21,8 @@ export interface StoredSession {
 }
 
 export interface StoredOrder {
+  request?: CreateOrderBody
+  walletAddress?: string
   dto: OrderDto
   collectorId: string
   idempotencyKey: string

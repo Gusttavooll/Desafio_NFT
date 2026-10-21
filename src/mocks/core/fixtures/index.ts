@@ -30,7 +30,7 @@ export const COLLECTORS: StoredCollector[] = [
   },
 ]
 
-// Ana já tem Carteira principal; Bruno começa sem Carteiras (estado vazio e isolamento).
+// Ana tem principal e secundária; Bruno começa sem Carteiras (estado vazio e isolamento).
 const ANA_PRIMARY_WALLET: WalletDto = {
   id: 'wallet-ana-primary',
   kind: 'primary',
@@ -42,6 +42,17 @@ const ANA_PRIMARY_WALLET: WalletDto = {
   username: 'ana.prado',
   email: 'ana@kronos.test',
   ensName: 'ana.eth',
+}
+
+const ANA_SECONDARY_WALLET: WalletDto = {
+  ...ANA_PRIMARY_WALLET,
+  id: 'wallet-ana-secondary',
+  kind: 'secondary',
+  address: '0x2222222222222222222222222222222222222222',
+  network: 'polygon',
+  type: 'walletconnect',
+  nickname: 'Coleção Polygon',
+  sameAsPrimary: false,
 }
 
 export const COUPON_VALID = 'KRONOS10'
@@ -56,7 +67,7 @@ export function createInitialState(): SimState {
     sessions: [],
     favorites: {},
     carts: {},
-    wallets: { 'collector-ana': [{ ...ANA_PRIMARY_WALLET }] },
+    wallets: { 'collector-ana': [{ ...ANA_PRIMARY_WALLET }, { ...ANA_SECONDARY_WALLET }] },
     orders: [],
     coupons: [
       { code: COUPON_VALID, percentOff: 10, expiresAt: '2099-12-31T23:59:59.000Z' },

@@ -9,6 +9,8 @@ export interface EditionDto {
   price: string
   // Unidades ainda compráveis; 0 = esgotada.
   available: number
+  // Limite por compra. Ausente nas simulações antigas: vale a disponibilidade.
+  purchaseLimit?: number
 }
 
 export interface NftAttributeDto {

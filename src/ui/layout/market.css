@@ -1,0 +1,30 @@
+/* Fluxos do marketplace: composição das specs sobre os tokens do KRONOS. */
+.market-page{padding:var(--space-10) var(--gutter) var(--space-19);max-width:var(--container);margin-inline:auto;min-width:0}.account-layout .market-page{padding-inline:0}
+.market-header{display:flex;justify-content:space-between;align-items:end;gap:var(--space-6);margin-bottom:var(--space-8);padding-bottom:var(--space-6);border-bottom:var(--border-structure)}
+.market-title,.market-header h1{font-family:var(--display);font-size:clamp(40px,5vw,76px);text-transform:uppercase;line-height:1;margin:var(--space-3) 0}
+.market-header p{max-width:60ch}.market-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:var(--space-8);align-items:start}
+.market-panel{min-width:0;background:var(--paper);border:var(--border-control);border-radius:var(--radius-outer);padding:var(--space-6)}
+.market-panel h2{font:600 30px/1.1 var(--display);text-transform:uppercase;margin-bottom:var(--space-5)}
+.market-panel h3{font:600 24px/1.2 var(--display);text-transform:uppercase}
+.market-stack{display:grid;gap:var(--space-6);min-width:0}.market-row{display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);min-width:0}
+.market-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-5)}
+.market-field{display:grid;gap:var(--space-2);min-width:0}.market-field>label,.market-field>span:first-child{font:500 11px/1.6 var(--mono);text-transform:uppercase;letter-spacing:.06em}
+.market-field input,.market-field select,.market-field textarea{width:100%;min-width:0}
+.market-field select,.market-select{min-height:var(--button-height);padding:var(--space-3);background:var(--paper);color:var(--ink);border:var(--border-control);border-radius:var(--radius-inner)}
+.market-field small{font-size:12px;color:var(--k-muted)}.market-actions{display:flex;align-items:center;gap:var(--space-3);flex-wrap:wrap}
+.market-summary{position:sticky;top:var(--grid-major)}.market-summary dl{display:grid;gap:var(--space-4)}
+.market-summary dl>div{display:flex;justify-content:space-between;gap:var(--space-4)}.market-summary dd{margin:0;overflow-wrap:anywhere;font-family:var(--mono)}
+.market-summary .market-total{padding-block:var(--space-5);margin-top:var(--space-3);border-top:var(--border-structure);font-weight:700}
+.market-message,.market-error{padding:var(--space-4);border:var(--border-control);border-radius:var(--radius-inner);overflow-wrap:anywhere;font-size:14px}
+.market-error{color:var(--error);border:var(--border-error)}.market-message{background:var(--plate);color:var(--ink)}
+.market-muted{color:var(--k-muted);font-size:12px;line-height:1.7}.market-empty{display:grid;gap:var(--space-5);justify-items:start;padding:var(--space-12) var(--space-6);background:var(--paper);border:var(--border-control)}
+.market-table{width:100%;border-collapse:collapse}.market-table th,.market-table td{text-align:left;padding:var(--space-3);border-bottom:var(--border-subtle)}
+.market-auth{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-19);align-items:start;max-width:calc(var(--grid-major)*9);margin:auto}
+.market-auth>div:first-child{padding-top:var(--space-6)}.market-auth h1{font:700 clamp(54px,7.5vw,118px)/.95 var(--display);text-transform:uppercase}
+.market-auth form{display:grid;gap:var(--space-5)}.market-auth .market-panel{max-width:calc(var(--grid-major)*4);width:100%}
+.market-auth a:not(.k-button){text-decoration:underline;text-underline-offset:var(--space-1)}
+.market-divider{height:1px;background:var(--hair);margin-block:var(--space-5)}
+.market-page [role=alert],.market-page [role=status]{overflow-wrap:anywhere}
+.market-check{display:flex;align-items:center;gap:var(--space-3);min-height:var(--touch)}.market-check input{width:var(--space-5);height:var(--space-5)}
+@media(max-width:768px){.market-grid,.market-auth{grid-template-columns:1fr;gap:var(--space-6)}.market-summary{position:static}.market-header{align-items:start;flex-direction:column}.market-panel{padding:var(--space-5)}.market-auth .market-panel{max-width:none}.market-page{padding-block:var(--space-6) var(--space-12)}}
+@media(max-width:480px){.market-fields{grid-template-columns:1fr}.market-row{flex-wrap:wrap}.market-table{font-size:12px}.market-table th,.market-table td{padding:var(--space-2)}}

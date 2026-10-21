@@ -1,0 +1,7 @@
+{
+  "cli": "lighthouse@13.5.0",
+  "runs": 3,
+  "pages": { "home": "/", "detail": "/nfts/emerald-ape-042" },
+  "profiles": ["mobile", "desktop"],
+  "thresholds": { "performance": 90, "accessibility": 95, "best-practices": 95, "seo": 90 }
+}

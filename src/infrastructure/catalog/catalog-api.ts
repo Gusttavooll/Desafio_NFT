@@ -8,6 +8,9 @@ export function mapNft(dto: NftDto): Nft {
     id: dto.id, title: dto.title, image: dto.imageUrl, description: dto.description,
     collection: dto.collectionId, collectionName: dto.collectionName, network: dto.network,
     price: parseEthAmount(dto.price), featured: dto.featured, version: dto.version,
+    tokenId: dto.tokenId, images: [dto.imageUrl, ...dto.thumbnailUrls.filter(url => url !== dto.imageUrl)],
+    oldPrice: dto.oldPrice ? parseEthAmount(dto.oldPrice) : undefined,
+    rating: dto.rating, reviewCount: dto.reviewCount, attributes: dto.attributes,
     editions: dto.editions.map(edition => ({ ...edition, price: parseEthAmount(edition.price) })),
   }
 }
@@ -16,6 +19,10 @@ export async function getCatalog(search: CatalogSearch, signal?: AbortSignal): P
   const params: ListNftsQuery = {
     search: search.q, collectionId: search.collection === 'all' ? undefined : search.collection,
     sort: search.sort, page: search.page, pageSize: 3,
+    ...(search.network && search.network !== 'all' ? { network: search.network } : {}),
+    ...(search.minPrice ? { minPrice: search.minPrice } : {}),
+    ...(search.maxPrice ? { maxPrice: search.maxPrice } : {}),
+    ...(search.tab && search.tab !== 'all' ? { tab: search.tab } : {}),
   }
   const { data } = await httpClient.get<ListNftsResponse>('/nfts', { params, signal })
   const nfts = data.items.map(mapNft)

@@ -1,0 +1,7 @@
+.catalog-tabs{margin-top:var(--space-5)}
+.mobile-catalog-filters{margin-top:var(--space-4)}
+.mobile-catalog-filters>button{width:100%}
+.mobile-filter-body{padding-inline:var(--space-6);min-width:0}
+.mobile-filter-body .collection-tabs{margin-top:var(--space-3)}
+.mobile-filter-actions{margin-top:auto;padding:var(--space-6);border-top:var(--border-subtle)}
+.mobile-filter-actions>button{width:100%}

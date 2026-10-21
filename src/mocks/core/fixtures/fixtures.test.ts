@@ -99,7 +99,7 @@ describe('Fixtures de Colecionadores, Cupons e Taxas', () => {
   })
 
   it('isolam Carteiras por Colecionador', () => {
-    expect(state.wallets['collector-ana']).toHaveLength(1)
+    expect(state.wallets['collector-ana']?.map(wallet => wallet.kind).sort()).toEqual(['primary', 'secondary'])
     expect(state.wallets['collector-bruno']).toBeUndefined()
   })
 })
