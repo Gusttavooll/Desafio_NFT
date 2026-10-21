@@ -7,3 +7,9 @@ export type {
   SessionDto,
   UpdateProfileBody,
 } from './dto'
+export { fetchSessionCollector } from './session-api'
+export {
+  createSessionTokenStorage,
+  type KeyValueStorage,
+  type SessionTokenStorage,
+} from './session-token-storage'

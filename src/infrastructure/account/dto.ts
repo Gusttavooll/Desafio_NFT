@@ -6,7 +6,7 @@ export interface CollectorDto {
   username: string
   email: string
   ensName?: string
-  avatarUrl?: string
+  avatarUrl?: string | null
 }
 
 // POST /auth/register
