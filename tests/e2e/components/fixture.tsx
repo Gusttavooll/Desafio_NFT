@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client'
-import { Button, Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger, PasswordInput, RadioGroup, RadioGroupItem } from '@/ui/components'
+import { Button, Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger, PasswordInput, RadioGroup, RadioGroupItem, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/ui/components'
 import '@/index.css'
 import '@/ui/layout/layout.css'
 
@@ -16,5 +16,13 @@ createRoot(document.getElementById('root')!).render(
       <DialogTrigger asChild><Button variant="outline">Abrir detalhes</Button></DialogTrigger>
       <DialogContent><DialogTitle>Detalhes da obra</DialogTitle><DialogDescription>Dados de demonstração do componente.</DialogDescription></DialogContent>
     </Dialog>
+    <Select>
+      <SelectTrigger aria-label="Coleção"><SelectValue placeholder="Escolher coleção" /></SelectTrigger>
+      <SelectContent><SelectItem value="genesis">Genesis</SelectItem><SelectItem value="archive">Archive</SelectItem></SelectContent>
+    </Select>
+    <Sheet>
+      <SheetTrigger asChild><Button variant="outline">Abrir filtros</Button></SheetTrigger>
+      <SheetContent><SheetHeader><SheetTitle>Filtros</SheetTitle><SheetDescription>Refine o acervo.</SheetDescription></SheetHeader></SheetContent>
+    </Sheet>
   </main>,
 )

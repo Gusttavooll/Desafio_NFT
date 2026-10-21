@@ -61,7 +61,7 @@ function DialogContent({
       <DialogPrimitive.Content
         data-slot="dialog-content"
         className={cn(
-          "fixed top-1/2 left-1/2 z-50 grid max-h-[calc(100dvh-2*var(--gutter))] w-full max-w-[calc(100%-2*var(--gutter))] -translate-x-1/2 -translate-y-1/2 gap-4 overflow-y-auto border border-ink bg-paper p-6 text-ink duration-160 sm:max-w-lg data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 max-sm:inset-0 max-sm:h-dvh max-sm:max-h-none max-sm:max-w-none max-sm:translate-x-0 max-sm:translate-y-0 max-sm:content-start max-sm:border-0",
+          "fixed top-1/2 left-1/2 z-50 grid max-h-[calc(100dvh-2*var(--gutter))] w-full max-w-[calc(100%-2*var(--gutter))] -translate-x-1/2 -translate-y-1/2 gap-4 overflow-y-auto border border-ink bg-paper p-6 text-ink duration-160 sm:max-w-[calc(var(--grid-major)*4)] data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 max-sm:inset-0 max-sm:h-dvh max-sm:max-h-none max-sm:max-w-none max-sm:translate-x-0 max-sm:translate-y-0 max-sm:content-start max-sm:border-0",
           className
         )}
         {...props}

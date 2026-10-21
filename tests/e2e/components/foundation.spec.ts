@@ -37,3 +37,20 @@ test('diálogo devolve o foco ao gatilho depois de fechar pelo teclado', async (
   await expect(page.getByRole('dialog')).not.toBeVisible()
   await expect(trigger).toBeFocused()
 })
+
+test('select e painel lateral cabem no viewport e aceitam teclado', async ({ page }) => {
+  await page.getByRole('combobox', { name: 'Coleção', exact: true }).click()
+  await page.getByRole('option', { name: 'Archive', exact: true }).click()
+  await expect(page.getByRole('combobox', { name: 'Coleção', exact: true })).toHaveText('Archive')
+  const trigger = page.getByRole('button', { name: 'Abrir filtros', exact: true })
+  await trigger.click()
+  const panel = page.getByRole('dialog', { name: 'Filtros', exact: true })
+  await expect(panel).toBeVisible()
+  await expect.poll(() => panel.evaluate((element) => {
+    const bounds = element.getBoundingClientRect()
+    return bounds.left >= -1 && bounds.right <= innerWidth + 1
+  })).toBe(true)
+  await page.keyboard.press('Escape')
+  await expect(panel).not.toBeVisible()
+  await expect(trigger).toBeFocused()
+})

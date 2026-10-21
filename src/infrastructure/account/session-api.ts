@@ -1,21 +1,12 @@
 import { isAxiosError, type AxiosInstance } from 'axios'
 import type { Collector, SessionToken } from '@/domain/account'
 import type { ApiError } from '@/domain/shared'
+import type { CollectorDto, SessionDto } from './dto'
 
-// Contrato de GET /auth/session (docs/architecture.md). Provisório até os contratos da Fase 0.
-export interface CollectorDto {
-  id: string
-  displayName: string
-  username: string
-  avatarUrl: string | null
-}
-
-export interface SessionDto {
-  collector: CollectorDto
-}
+export type { CollectorDto, SessionDto } from './dto'
 
 function toCollector(dto: CollectorDto): Collector {
-  return { id: dto.id, displayName: dto.displayName, username: dto.username, avatarUrl: dto.avatarUrl }
+  return { id: dto.id, displayName: dto.displayName, username: dto.username, avatarUrl: dto.avatarUrl ?? null }
 }
 
 // O token vai explícito porque, ao recuperar a Sessão, ela ainda não foi iniciada no cliente.

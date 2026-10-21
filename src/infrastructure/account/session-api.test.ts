@@ -1,7 +1,8 @@
 import axios, { AxiosError, type AxiosAdapter } from 'axios'
 import { describe, expect, it } from 'vitest'
 import { toSessionToken } from '@/domain/account'
-import { fetchSessionCollector, type SessionDto } from './session-api'
+import { fetchSessionCollector } from './session-api'
+import type { SessionDto } from './dto'
 
 function fakeClient(status: number, data: unknown) {
   const requests: Array<{ url?: string; authorization?: string }> = []
@@ -15,7 +16,9 @@ function fakeClient(status: number, data: unknown) {
 }
 
 const dto: SessionDto = {
-  collector: { id: 'user-a', displayName: 'Ana', username: 'ana', avatarUrl: null },
+  token: 'token-a',
+  expiresAt: '2026-10-22T00:00:00.000Z',
+  collector: { id: 'user-a', displayName: 'Ana', username: 'ana', email: 'ana@example.test' },
 }
 
 describe('fetchSessionCollector', () => {
@@ -24,8 +27,20 @@ describe('fetchSessionCollector', () => {
 
     const collector = await fetchSessionCollector(client, toSessionToken('token-a'))
 
-    expect(collector).toEqual(dto.collector)
+    expect(collector).toEqual({ id: 'user-a', displayName: 'Ana', username: 'ana', avatarUrl: null })
     expect(requests).toEqual([{ url: '/auth/session', authorization: 'Bearer token-a' }])
+  })
+
+  it('preserva o avatar informado no contrato REST', async () => {
+    const { client } = fakeClient(200, { ...dto, collector: { ...dto.collector, avatarUrl: '/avatar.svg' } })
+    expect(await fetchSessionCollector(client, toSessionToken('token-a'))).toEqual({
+      id: 'user-a', displayName: 'Ana', username: 'ana', avatarUrl: '/avatar.svg',
+    })
+  })
+
+  it('aceita null para um avatar removido', async () => {
+    const { client } = fakeClient(200, { ...dto, collector: { ...dto.collector, avatarUrl: null } })
+    expect((await fetchSessionCollector(client, toSessionToken('token-a')))?.avatarUrl).toBeNull()
   })
 
   it('devolve null quando a Sessão expirou', async () => {
