@@ -2,6 +2,18 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+@source not "../.claude";
+@source not "../docs";
+@source not "../kronos-design-system.html";
+
+@theme {
+    --color-*: initial;
+    --radius-*: initial;
+    --shadow-*: initial;
+    --inset-shadow-*: initial;
+    --drop-shadow-*: initial;
+}
+
 /* O Kronos não tem tema escuro: a variante dark só vale dentro de .dark, que não é usado. */
 @custom-variant dark (&:is(.dark *));
 
@@ -80,18 +92,25 @@
     --unit: 8px;
     --grid: 32px;
     --grid-major: 128px;
+    --symbol-grid: 64px;
+    --symbol-protection: 16px;
+    --symbol-min: 16px;
+    --symbol-recommended: 24px;
     --cut: 12px;
     --cut-large: 17px;
     --frame-padding: 8px;
     --stroke: 1px;
     --icon-stroke: 1.75px;
     --icon-grid: 24px;
+    --icon-node: 3px;
     --touch: 44px;
     --button-height: 46px;
     --focus-width: 3px;
     --focus-offset: 4px;
     --focus-gap: 2px;
     --container: 1720px;
+    --gutter-min: 20px;
+    --gutter-max: 72px;
     --gutter: clamp(20px, 4.2vw, 72px);
     --type-cover: clamp(110px, 23vw, 340px);
     --type-showcase: clamp(65px, 9vw, 138px);
@@ -126,6 +145,37 @@
     --border-control: var(--stroke) solid var(--line);
     --border-subtle: var(--stroke) solid var(--hair);
     --border-error: var(--stroke) solid var(--error);
+
+    --button-background: var(--paper);
+    --button-foreground: var(--ink);
+    --button-border: var(--line);
+    --button-hover: var(--plate);
+    --button-primary-background: var(--action);
+    --button-primary-foreground: var(--paper);
+    --button-ink-background: var(--ink);
+    --button-danger-foreground: var(--error);
+    --button-disabled-background: var(--plate);
+    --button-radius: var(--radius-inner);
+    --button-min-height: var(--button-height);
+    --frame-radius: var(--radius-none);
+    --frame-cut: var(--cut);
+    --frame-border: var(--border-structure);
+    --frame-background: var(--paper);
+    --input-border: var(--border-control);
+    --input-radius: var(--radius-inner);
+    --input-error: var(--error);
+    --edition-selected-background: var(--plate);
+    --edition-selected-foreground: var(--ink);
+    --edition-radius: var(--radius-inner);
+    --stepper-height: var(--touch);
+    --stepper-radius: var(--radius-inner);
+    --badge-version-background: var(--ink);
+    --badge-version-foreground: var(--paper);
+    --badge-radius: var(--radius-none);
+    --stale-foreground: var(--error);
+    --stale-background: var(--paper);
+    --skeleton-background: var(--plate);
+    --skeleton-duration: var(--duration-shimmer);
 
     /* Variáveis do shadcn/ui */
     --background: var(--paper);

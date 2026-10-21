@@ -1,6 +1,6 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 import { Button } from "@/ui/components/ui/button"
 import { Input } from "@/ui/components/ui/input"
@@ -67,7 +67,7 @@ const inputGroupButtonVariants = cva("flex items-center gap-2 shadow-none", {
   variants: {
     size: {
       default: "min-h-0 px-3",
-      icon: "size-touch p-0 has-[>svg]:p-0",
+      icon: "min-h-0 size-touch p-0 has-[>svg]:p-0",
     },
   },
   defaultVariants: {

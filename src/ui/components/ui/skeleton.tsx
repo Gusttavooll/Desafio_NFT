@@ -1,4 +1,4 @@
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 // Placa com shimmer de 1,4s; com prefers-reduced-motion fica estático.
 // Quem usa o skeleton continua responsável por anunciar o estado em texto.

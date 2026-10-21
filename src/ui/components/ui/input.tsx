@@ -1,5 +1,5 @@
 import * as React from "react"
-import { cn } from "cn"
+import { cn } from "@/lib/utils"
 
 // Campo do Kronos (.field-input): 44px, raio 6px, borda --line, erro via aria-invalid.
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
