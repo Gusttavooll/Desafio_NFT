@@ -1,0 +1,35 @@
+# Posse por bounded context (docs/adr/0002-contextos-dentro-das-camadas.md).
+# A última regra que casa com o arquivo vence.
+
+# Padrão: tudo que não tem dono específico é compartilhado.
+*                                   @ozielrsdev @jairbonifacio-collab @Samuel-Kepler @Gusttavooll
+
+# Catálogo e Favoritos
+/src/*/catalog/                     @ozielrsdev
+/tests/e2e/catalog/                 @ozielrsdev
+
+# Carrinho e Cotação
+/src/*/cart/                        @jairbonifacio-collab
+/tests/e2e/cart/                    @jairbonifacio-collab
+
+# Pedidos e Carteiras
+/src/*/orders/                      @Samuel-Kepler
+/src/*/wallets/                     @Samuel-Kepler
+/tests/e2e/orders/                  @Samuel-Kepler
+/tests/e2e/wallets/                 @Samuel-Kepler
+
+# Conta e Sessão, Tempo real
+/src/*/account/                     @Gusttavooll
+/src/*/realtime/                    @Gusttavooll
+/tests/e2e/account/                 @Gusttavooll
+/tests/e2e/realtime/                @Gusttavooll
+
+# Compartilhado: mudanças afetam todos os contextos.
+/src/*/shared/                      @ozielrsdev @jairbonifacio-collab @Samuel-Kepler @Gusttavooll
+/src/mocks/core/                    @ozielrsdev @jairbonifacio-collab @Samuel-Kepler @Gusttavooll
+/src/ui/components/                 @ozielrsdev @jairbonifacio-collab @Samuel-Kepler @Gusttavooll
+/src/ui/layout/                     @ozielrsdev @jairbonifacio-collab @Samuel-Kepler @Gusttavooll
+/src/index.css                      @ozielrsdev @jairbonifacio-collab @Samuel-Kepler @Gusttavooll
+/package.json                       @ozielrsdev @jairbonifacio-collab @Samuel-Kepler @Gusttavooll
+/package-lock.json                  @ozielrsdev @jairbonifacio-collab @Samuel-Kepler @Gusttavooll
+/docs/adr/                          @ozielrsdev @jairbonifacio-collab @Samuel-Kepler @Gusttavooll

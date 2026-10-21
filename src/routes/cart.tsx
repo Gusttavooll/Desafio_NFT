@@ -1,9 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { CartPage } from '@/ui/cart'
 
 export const Route = createFileRoute('/cart')({
   component: CartPage,
 })
-
-function CartPage() {
-  return <h1 className="text-2xl font-semibold">Carrinho</h1>
-}

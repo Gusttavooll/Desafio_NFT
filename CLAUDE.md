@@ -12,7 +12,8 @@ Marketplace de NFTs: descoberta e compra de NFTs, carrinho, checkout com carteir
 
 ## Comandos
 - Instalar: `npm ci`
-- Testes: `npx playwright test`
+- Testes unitários (domínio): `npm run test:unit` (Vitest, `src/**/*.test.ts`)
+- Testes E2E: `npx playwright test`
 - Lint: `npm run lint` (eslint + `tsc --noEmit`)
 - Build: `npm run build`
 
@@ -27,6 +28,7 @@ Marketplace de NFTs: descoberta e compra de NFTs, carrinho, checkout com carteir
 - Seguir DDD: usar exatamente os termos de `docs/glossary.md` (Ubiquitous Language). Nunca inventar nomes de domínio.
 - Camadas: domain → application → infrastructure. O domínio não importa nada de infraestrutura (nem React, Axios ou Socket.IO).
 - Decisões de arquitetura ficam em `docs/adr/`. Não desfazer uma decisão sem criar um novo ADR.
+- Trabalho em paralelo por bounded context: editar só as pastas do contexto da branch atual (regras em `AGENTS.md`, donos em `CONTRIBUTING.md`) e rodar o agente `context-guard` antes de commit.
 
 ## Regras
 - NÃO instalar dependência nova sem justificar e pedir aprovação (verificar se o pacote realmente existe).

@@ -39,7 +39,9 @@ UI (React + shadcn/ui + Tailwind)
 
 Regra: o domínio não importa nada de infraestrutura ou UI. Componentes, hooks e Axios não contêm respostas fictícias.
 
-## Estrutura sugerida de `src/`
+## Estrutura de `src/`
+Cada camada é subdividida por bounded context (`shared`, `catalog`, `cart`, `orders`, `account`, `wallets`, `realtime`), conforme `docs/adr/0002-contextos-dentro-das-camadas.md`. Detalhes e regras de import em `CONTRIBUTING.md`.
+
 ```
 src/
 ├── domain/            # tipos, EthAmount, estados do pedido, regras
