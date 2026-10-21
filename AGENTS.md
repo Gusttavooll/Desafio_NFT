@@ -17,5 +17,6 @@ Quatro devs trabalham ao mesmo tempo, cada um dono de contextos (ADR 0002). A ta
 - Antes de entregar, rode o agente `context-guard` para checar se o diff respeita a divisão.
 
 ## Design
-- Estrutura das telas vem do Figma, resumida em `docs/design.md`. Não é pixel-perfect.
+- **Não é preciso ser pixel-perfect com o Figma.** Siga a estrutura (telas, seções, ordem, campos e componentes) e o comportamento responsivo; medidas e espaçamentos exatos não importam.
+- Estrutura das telas vem do Figma, resumida em `docs/design.md`.
 - Estilização vem da skill `ui-ux-pro-max`, aplicada como tokens no `src/index.css`. Nunca copie cores, fontes ou medidas do Figma; use `ui/components`, `ui/layout` e as classes dos tokens.
