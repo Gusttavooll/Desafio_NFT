@@ -1,2 +1,2 @@
 // API pública: Tempo real. Outros contextos importam só daqui.
-export {}
+export { createSocketConnection } from './socket-connection'
