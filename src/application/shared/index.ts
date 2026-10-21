@@ -1,2 +1,2 @@
 // API pública: Shared kernel. Outros contextos importam só daqui.
-export {}
+export { scopedQueryKey } from './query-keys'
