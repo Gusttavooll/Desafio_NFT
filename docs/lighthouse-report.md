@@ -1,34 +1,41 @@
-# Lighthouse: configuração e estado da medição
+# Lighthouse: resultado final da demonstração
 
-Em 21/10/2026, o roteiro reutilizável foi preparado em `scripts/lighthouse.ps1`, com metas em `scripts/lighthouse.config.json`. Mede três execuções sequenciais por combinação: início e detalhe, mobile e desktop (12 execuções). Calcula a mediana por categoria e retorna código 2 quando alguma meta falha: Performance 90, Acessibilidade 95, Boas práticas 95, SEO 90.
+Medição concluída em 21/10/2026, no preview do build de produção com mocks em `http://127.0.0.1:5241`. Foram realizadas **12 execuções sequenciais**, três para cada combinação de início/detalhe e mobile/desktop, sem testes de navegador ou builds concorrentes.
 
-## Execução
+| Página | Perfil | Performance (meta 90) | Acessibilidade (meta 95) | Boas práticas (meta 95) | SEO (meta 90) |
+|---|---|---:|---:|---:|---:|
+| Início | Mobile | **87 — abaixo da meta** | 100 | 100 | 100 |
+| Início | Desktop | 99 | 100 | 100 | 100 |
+| Detalhe Emerald Ape | Mobile | **84 — abaixo da meta** | 100 | 100 | 100 |
+| Detalhe Emerald Ape | Desktop | 99 | 100 | 100 | 100 |
 
-Após gerar o build com `VITE_ENABLE_MOCKS=true` e iniciar seu preview na porta 5241, encerre testes E2E e outros benchmarks antes de executar:
+As células são medianas. **A meta de performance mobile do PRD não foi atingida; a auditoria global não está aprovada.** As demais metas medidas foram atingidas. O script concluiu a coleta e sinalizou falha de threshold, sem erro de execução do Lighthouse.
+
+## Evidência e ambiente
+
+Relatórios completos: `lighthouse-reports/final-20261022/` (diretório local ignorado pelo Git; o nome da pasta não define a data da medição). Contém 12 HTML, 12 JSON, `environment.json`, `summary.json` e `summary.md`. As capturas finais representativas de cada página/perfil foram extraídas dos JSON e inspecionadas: header, título, imagem da obra e controles estavam renderizados, sem fallback vazio ou skeleton. Nenhum dos 12 relatórios contém `runtimeError`.
+
+- Lighthouse 13.5.0; Node v24.14.1; Windows NT 10.0.26300.0; HeadlessChrome 156.0.0.0.
+- Mobile usa emulação padrão do Lighthouse (Moto G Power/Android), desktop usa `--preset=desktop`. Não houve alteração dos critérios de pontuação.
+- Performance por execução: início/mobile 86, 88, 87; início/desktop 100, 99, 99; detalhe/mobile 84, 84, 84; detalhe/desktop 99, 99, 99.
+- Acessibilidade, boas práticas e SEO: 100 em todas as 12 execuções.
+
+## Pendência de performance
+
+No mobile final, o início apresentou FCP entre 2,2 e 2,5 s, LCP entre 3,6 e 3,7 s e TBT entre 40 e 90 ms. O detalhe apresentou FCP entre 2,4 e 2,5 s, LCP de 4,0 s e TBT entre 40 e 50 ms. Desktop ficou entre 0,8 e 0,9 s de LCP.
+
+A análise preliminar identificou custo relevante no bootstrap de MSW e suas dependências de cookies/sufixos de domínio, além da descoberta de recursos após iniciar a aplicação. Foram aplicados bootstrap paralelo da aplicação e MSW, importação tardia de Socket.IO, carregamento antecipado das duas rotas públicas, fontes WOFF2 com preload do título, prioridade da imagem principal, ausência de logs detalhados em produção e correção de favicon/robots. Os mocks, cookies, eventos e critérios de auditoria foram preservados. As melhorias não bastaram para atingir 90 no mobile; resolver esse ponto exige trabalho adicional e nova medição.
+
+## Reproduzir
+
+Após as 12 medições, foi ensaiado um plugin que antecipava, via `modulepreload`, os chunks obrigatórios de aplicação/MSW e seus imports estáticos. Lint e build passaram, mas os dois preflights mobile não mostraram melhora: início 82 (FCP 3,5 s, LCP 3,7 s) e detalhe 80 (FCP 3,4 s, LCP 4,0 s); as outras categorias ficaram em 100. O plugin experimental foi retirado, sem alteração da semântica de mocks/cookies. Relatórios desse ensaio: `lighthouse-reports/preflight-modulepreload/`. As medianas de 12 execuções acima continuam sendo a referência do código mantido.
+
+Após gerar o build com `VITE_ENABLE_MOCKS=true` e iniciar seu preview na porta 5241, sem E2E ou outros benchmarks concorrentes:
 
 ```powershell
 pwsh -File scripts/lighthouse.ps1 -BaseUrl http://127.0.0.1:5241
 ```
 
-Se o Chrome não for descoberto automaticamente, informe `-ChromePath` com o executável instalado. `-DetailPath` permite escolher outra obra existente. `-OutputDirectory` aceita uma pasta externa; por padrão os relatórios ficam em `lighthouse-reports/<data-hora>`, ignorada pelo Git. Para recalcular medianas de relatórios existentes sem abrir navegador, use `-SummarizeOnly -OutputDirectory <pasta>`.
+A configuração em `scripts/lighthouse.config.json` fixa a CLI `lighthouse@13.5.0`, as páginas e thresholds. `-ChromePath` permite apontar um Chrome instalado; `-DetailPath` troca a obra; `-OutputDirectory` seleciona uma pasta externa ou ignorada. `-SummarizeOnly -OutputDirectory <pasta>` recalcula os resultados existentes sem abrir navegador. Não há dependência Lighthouse adicionada ao pacote do aplicativo.
 
-O script usa a CLI oficial por `npx --yes lighthouse@13.5.0`, versão fixada na configuração, sem adicionar dependências ao projeto. Registra versão da CLI, Node, sistema e configuração em `environment.json`; cada relatório inclui versão do Chrome, user agent, configuração e auditorias. Gera HTML/JSON por execução e `summary.md`/`summary.json` com medianas. Arquive os relatórios e atualize este documento com o resumo da execução concluída.
-
-## Resultado disponível
-
-O bloqueio inicial de espaço (`ENOSPC`) foi resolvido; a CLI 13.5.0 teve `--version` e `--help` validados. Foi concluída **uma execução preliminar do início em mobile**, no preview do build com mocks em `http://127.0.0.1:5241/`, antes das 12 medições. Os arquivos estão em `lighthouse-reports/preflight/home-mobile-1.report.{html,json}`.
-
-| Execução preliminar | Performance | Acessibilidade | Boas práticas | SEO |
-|---|---:|---:|---:|---:|
-| Início / mobile / 1 | 78 | 100 | 96 | 92 |
-| Início / mobile / após correções de bootstrap e arquivos públicos | 85 | 100 | 100 | 100 |
-| Início / mobile / bootstrap paralelo e WOFF2 | 86 | 100 | 100 | 100 |
-| Detalhe / mobile / bootstrap paralelo e WOFF2 | 81 | 100 | 100 | 100 |
-
-**Ainda não são medianas e a meta de performance não foi atingida.** As 12 execuções foram adiadas para corrigir os achados concretos antes da medição final. Na primeira rodada: FCP 2,9 s, LCP 3,9 s, TBT 240 ms; aproximadamente 95 KiB de JavaScript não utilizado, CSS bloqueante estimado em 300 ms. `favicon.ico` retornava 404 e `robots.txt` retornava o fallback HTML; ambos foram corrigidos antes da segunda rodada.
-
-Na segunda rodada (`lighthouse-reports/preflight-final/home-mobile-1.report.{html,json}`), FCP 2,8 s, LCP 3,5 s e TBT 80 ms. A captura final foi inspecionada: header, texto principal, botões, arte em destaque e navegação estavam renderizados. O LCP é o título `h1#archive-title`, não um skeleton. As seis fontes e três artes SVG constam como respostas 200; tamanho transferido zero nos recursos intermediados por MSW não significa ausência do conteúdo. Permanecem o custo do bootstrap e o carregamento das fontes. O primeiro relatório também registrou pressão crítica de memória na avaliação de back/forward cache (`CacheLimitPrunedOnCriticalMemoryPressure`), sem atribuir essa condição ao aplicativo.
-
-Preview local não comprova latência da URL pública. Não substituir medições ausentes por resultados de build, testes funcionais ou estimativas.
-
-A rodada `preflight-woff2` mediu o bootstrap paralelo e as fontes locais comprimidas: início FCP 2,4 s, LCP 3,7 s, TBT 80 ms; detalhe FCP 2,4 s, LCP 4,0 s, TBT 220 ms. No detalhe o LCP é a imagem real da obra, com atraso de descoberta de aproximadamente 627 ms e recomendação de prioridade alta. O bootstrap MSW ainda concentra parte relevante do custo de execução. As medições finais seguem pendentes após ajustes finais de interface e desempenho.
+O preview local não comprova a latência da URL publicada. Testes funcionais, build e estas notas de acessibilidade automatizadas não substituem avaliação manual de acessibilidade nem comprovam desempenho de produção.

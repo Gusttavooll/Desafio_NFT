@@ -29,7 +29,7 @@ Os itens da cotação e do recibo carregam `image?`, copiado do catálogo na cri
 
 - ESLint, fronteiras entre contextos, TypeScript e build com mocks: aprovados.
 - 221 testes unitários do aplicativo passaram na execução completa. Também passaram 16 testes Stripe e 20 testes Pi Genesis.
-- 56 cenários Playwright validados em desktop e mobile. Na última execução integral, 54 passaram e dois apontaram um seletor ambíguo após adicionar recomendações ao carrinho. O seletor foi restringido à região de itens; os dois casos passaram na reexecução, sem retries.
+- 56 cenários Playwright passaram juntos na [CI do commit 708a148](https://github.com/Gusttavooll/Desafio_NFT/actions/runs/39695831849), em desktop e mobile. A execução integral terminou em 2,7 minutos, após corrigir localmente dois seletores ambíguos do carrinho.
 - Jornadas: cadastro/login/expiração/isolamento, perfil/avatar/senha, filtros e destaques, favoritos, carrinho/cupom, carteiras, checkout, recusa, novo aceite de preço, timeout idempotente, latência variável, refresh de pedido/recibo e reconexão com descarte de eventos antigos.
 - A revisão visual do checkout encontrou cartões de rádio vazios; a correção usa o texto dentro dos cartões do design system. A jornada de compra passou novamente em desktop e mobile. Após a última otimização de inicialização, oito testes de catálogo, compra e tempo real passaram novamente nos dois tamanhos.
 - Os relatórios funcionais são gerados em `playwright-report/` e `test-results/`. A auditoria Lighthouse possui configuração reproduzível e resultado separado em `docs/lighthouse-report.md`.
