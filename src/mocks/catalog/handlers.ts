@@ -2,9 +2,20 @@ import type { RequestHandler, WebSocketHandler } from 'msw'
 import { delay, http } from 'msw'
 import { getSimulation, withScenarioLatency } from '@/mocks/core'
 import { catalogResponse, nftResponse } from './catalog-response'
+import { favoritesResponse } from './favorites-response'
 
 let requestSequence = 0
 export const catalogHandlers: Array<RequestHandler | WebSocketHandler> = [
+  http.get('/api/favorites', async ({ request }) => {
+    const sim = getSimulation()
+    await withScenarioLatency(sim, 'GET /favorites')
+    return favoritesResponse(sim, request)
+  }),
+  ...(['put', 'delete'] as const).map(method => http[method]('/api/favorites/:nftId', async ({ request, params }) => {
+    const sim = getSimulation()
+    await withScenarioLatency(sim, `${request.method} /favorites/:nftId`)
+    return favoritesResponse(sim, request, String(params.nftId))
+  })),
   http.get('/api/nfts', async ({ request }) => {
     const sim = getSimulation()
     const sequence = ++requestSequence

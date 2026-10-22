@@ -18,6 +18,7 @@ export interface Simulation {
   scenario: () => ScenarioName
   scenarioConfig: () => ScenarioConfig
   setScenario: (name: ScenarioName) => void
+  reloadFromStorage: () => void
   // Altera o estado e persiste.
   update: (mutate: (state: SimState) => void) => void
   // Restaura as Fixtures (e encerra Sessões e Pedidos). Mantém o Cenário, salvo se for informado outro.
@@ -62,6 +63,10 @@ export function createSimulation(options: { storage: SimulationStorage | null; s
     state: () => state,
     scenario: () => scenario,
     scenarioConfig: () => SCENARIOS[scenario],
+    reloadFromStorage() {
+      const fresh = load(storage)
+      if (fresh) { state = fresh.state; scenario = fresh.scenario }
+    },
     setScenario(name) {
       scenario = name
       save()
@@ -94,9 +99,13 @@ let instance: Simulation | undefined
 
 // Instância única da página, ligada ao localStorage e à URL atual.
 export function getSimulation(): Simulation {
-  instance ??= createSimulation({
+  if (instance) return instance
+  instance = createSimulation({
     storage: typeof localStorage === 'undefined' ? null : localStorage,
     search: typeof location === 'undefined' ? '' : location.search,
+  })
+  if (typeof window !== 'undefined') window.addEventListener('storage', event => {
+    if (event.key === SIMULATION_STORAGE_KEY) instance?.reloadFromStorage()
   })
   return instance
 }

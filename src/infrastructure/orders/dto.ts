@@ -33,6 +33,7 @@ export interface ReceiptItemDto {
   nftId: string
   editionId: string
   title: string
+  image?: string
   tokenId: string
   editionLabel: string
   quantity: number

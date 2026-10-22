@@ -7,11 +7,11 @@ import { installSessionInterceptors } from './http-client'
 type Reply = { status: number; data: unknown }
 
 // Adapter falso: responde sem rede e registra o header de autorização de cada requisição.
-function fakeApi(reply: (config: InternalAxiosRequestConfig) => Reply) {
+function fakeApi(reply: (config: InternalAxiosRequestConfig) => Reply | Promise<Reply>) {
   const authorizations: Array<string | undefined> = []
   const adapter: AxiosAdapter = async (config) => {
     authorizations.push(config.headers.get('Authorization')?.toString())
-    const { status, data } = reply(config)
+    const { status, data } = await reply(config)
     const response = { status, data, statusText: '', headers: {}, config }
     if (status >= 400) throw new AxiosError('falha', AxiosError.ERR_BAD_REQUEST, config, null, response)
     return response
@@ -23,7 +23,7 @@ function apiError(code: ApiError['code']): ApiError {
   return { code, message: code }
 }
 
-function setup(reply: (config: InternalAxiosRequestConfig) => Reply, initialToken: SessionToken | null = null) {
+function setup(reply: (config: InternalAxiosRequestConfig) => Reply | Promise<Reply>, initialToken: SessionToken | null = null) {
   const api = fakeApi(reply)
   let token = initialToken
   const onSessionExpired = vi.fn()
@@ -43,6 +43,15 @@ describe('installSessionInterceptors', () => {
     const { client, authorizations } = setup(() => ({ status: 200, data: {} }))
     await client.get('/nfts')
     expect(authorizations).toEqual([undefined])
+  })
+
+  it('preserva o token explícito do logout mesmo se outra sessão começar antes do envio', async () => {
+    const { client, authorizations, setToken } = setup(() => ({ status: 204, data: null }), toSessionToken('token-a'))
+    const logout = client.post('/auth/logout', undefined, { headers: { Authorization: 'Bearer token-a' } })
+    setToken(toSessionToken('token-b'))
+    await logout
+    await client.get('/me')
+    expect(authorizations).toEqual(['Bearer token-a', 'Bearer token-b'])
   })
 
   it('avisa a aplicação quando a Sessão expira', async () => {
@@ -72,6 +81,25 @@ describe('installSessionInterceptors', () => {
     setToken(toSessionToken('token-2'))
     await client.get('/me').catch(() => undefined)
     expect(onSessionExpired).toHaveBeenCalledTimes(2)
+  })
+
+  it.each(['token-novo', null])('ignora 401 atrasado da sessão anterior quando o token atual é %s', async (nextToken) => {
+    let started!: () => void
+    let finish!: (reply: Reply) => void
+    const dispatched = new Promise<void>(resolve => { started = resolve })
+    const pending = new Promise<Reply>(resolve => { finish = resolve })
+    const { client, authorizations, onSessionExpired, setToken } = setup(() => { started(); return pending }, toSessionToken('token-antigo'))
+    const oldRequest = expect(client.get('/me')).rejects.toBeInstanceOf(AxiosError)
+    await dispatched
+    expect(authorizations).toEqual(['Bearer token-antigo'])
+    setToken(nextToken === null ? null : toSessionToken(nextToken))
+    finish({ status: 401, data: apiError('session_expired') })
+    await oldRequest
+    expect(onSessionExpired).not.toHaveBeenCalled()
+    if (nextToken !== null) {
+      await expect(client.get('/me')).rejects.toBeInstanceOf(AxiosError)
+      expect(onSessionExpired).toHaveBeenCalledTimes(1)
+    }
   })
 
   it.each([

@@ -28,13 +28,16 @@ export function catalogResponse(sim: Simulation, request: Request): Response {
   const max = params.get('maxPrice')
   if ((min !== null && !isEthAmount(min)) || (max !== null && !isEthAmount(max))) return respondWithError(422, 'validation_error', 'Preço inválido.')
   const all = sim.scenarioConfig().emptyCatalog ? [] : sim.state().nfts
+  const latest = Math.max(...all.map(nft => Date.parse(nft.createdAt)))
   const collections = Array.from(new Set(all.map(nft => nft.collectionId)), id => ({
     id, name: all.find(nft => nft.collectionId === id)!.collectionName, count: all.filter(nft => nft.collectionId === id).length,
   }))
-  const filtered = all.filter(nft => (!collection || nft.collectionId === collection)
+  const filtered = all.filter(nft => (!collection || collection.split(',').includes(nft.collectionId))
     && (!network || nft.network === network)
     && `${nft.title} ${nft.tokenId} ${nft.id}`.toLocaleLowerCase('pt-BR').includes(search)
     && (params.get('tab') !== 'trending' || nft.trending)
+    && (params.get('tab') !== 'new' || Date.parse(nft.createdAt) >= latest - 6 * 86400000)
+    && (params.get('featured') !== 'true' || nft.featured)
     && (min === null || wei(nft.price) >= wei(min)) && (max === null || wei(nft.price) <= wei(max)))
   const sort = params.get('sort')
   filtered.sort((a, b) => {

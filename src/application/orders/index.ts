@@ -1,6 +1,2 @@
-// API pública: Pedidos. Outros contextos importam só daqui.
-import { scopedQueryKey } from '@/application/shared'
-
-export const orderQueryKeys = {
-  detail: (userId: string | null, orderId: string) => scopedQueryKey(userId, 'orders', orderId),
-}
+export { useCheckout, useOrder, orderQueryKeys, applyOrderUpdate, orderError, startOrdersSessionLifecycle } from './use-checkout'
+export type { CollectorData, CollectorErrors } from '@/domain/orders'

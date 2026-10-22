@@ -1,2 +1,2 @@
 // API pública: Tempo real. Outros contextos importam só daqui.
-export { startRealtime } from './start-realtime'
+export { startRealtime, useRealtimeStatus } from './start-realtime'

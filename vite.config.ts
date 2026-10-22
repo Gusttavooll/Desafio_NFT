@@ -8,7 +8,14 @@ import { tanstackRouter } from '@tanstack/router-plugin/vite'
 export default defineConfig({
   plugins: [
     // O plugin do Router precisa vir antes do plugin do React.
-    tanstackRouter({ target: 'react', autoCodeSplitting: true }),
+    tanstackRouter({
+      target: 'react',
+      autoCodeSplitting: true,
+      // Public browsing is the entry point; load its UI/CSS alongside the app and MSW.
+      codeSplittingOptions: {
+        splitBehavior: ({ routeId }) => routeId === '/' || routeId === '/nfts/$nftId' ? [] : undefined,
+      },
+    }),
     react(),
     tailwindcss(),
   ],

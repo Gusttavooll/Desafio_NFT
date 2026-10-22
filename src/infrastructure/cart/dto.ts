@@ -13,6 +13,8 @@ export interface CartItemDto {
 export interface CartDto {
   items: CartItemDto[]
   version: number
+  // Server reconciled quantities against current availability/limit.
+  adjusted?: boolean
 }
 
 // POST /cart/items
@@ -38,6 +40,7 @@ export interface QuoteItemDto {
   nftId: string
   editionId: string
   title: string
+  image?: string
   tokenId: string
   editionLabel: string
   quantity: number

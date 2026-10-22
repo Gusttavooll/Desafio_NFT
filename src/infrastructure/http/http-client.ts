@@ -27,14 +27,18 @@ export function installSessionInterceptors(client: AxiosInstance, options: Sessi
 
   const requestId = client.interceptors.request.use((config) => {
     const token = options.getToken()
-    if (token) config.headers.set('Authorization', `${BEARER_PREFIX}${token}`)
+    // Logout e recuperação podem estar vinculados explicitamente a outro token.
+    // Não trocar essa identidade se uma nova Sessão começou antes do envio.
+    if (token && config.headers.get('Authorization') === undefined) config.headers.set('Authorization', `${BEARER_PREFIX}${token}`)
     return config
   })
 
   const responseId = client.interceptors.response.use(undefined, (error: unknown) => {
     if (isSessionExpired(error)) {
       const authorization = error.config?.headers.get('Authorization')?.toString() ?? null
-      if (authorization !== null && authorization !== lastExpiredAuthorization) {
+      const currentToken = options.getToken()
+      // Uma resposta atrasada da Sessão anterior não pode expirar a conta atual.
+      if (currentToken !== null && authorization === `${BEARER_PREFIX}${currentToken}` && authorization !== lastExpiredAuthorization) {
         lastExpiredAuthorization = authorization
         options.onSessionExpired()
       }

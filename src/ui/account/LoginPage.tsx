@@ -1,3 +1,2 @@
-export function LoginPage() {
-  return <h1 className="text-2xl font-semibold">Login</h1>
-}
+import { AuthPage } from './AuthPage'
+export function LoginPage() { return <AuthPage key="login" mode="login" /> }

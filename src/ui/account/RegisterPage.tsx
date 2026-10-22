@@ -1,3 +1,2 @@
-export function RegisterPage() {
-  return <h1 className="text-2xl font-semibold">Cadastro</h1>
-}
+import { AuthPage } from './AuthPage'
+export function RegisterPage() { return <AuthPage key="register" mode="register" /> }
